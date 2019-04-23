@@ -34,10 +34,7 @@ class robot():
 
     
     # pointer length (mm)
-    pointer = 100
-
-    # pointer distance to the center of the robot (mm)
-    point_dis = 40
+    pointer = 160
 
 
     def __init__(self):
@@ -79,11 +76,11 @@ class robot():
     # point for x ms
     def point(self, ms):
         # TODO: check how many degrees is "pointing"
-        self.mP.run_to_abs_pos(position_sp=10)
+        self.mP.run_to_rel_pos(position_sp=90)
         # move back after ms
-        time.sleep(ms)
+        time.sleep(ms * 1000)
         # TODO: check how many degrees is "not pointing"
-        self.mP.run_to_abs_pos(position_sp=0)
+        self.mP.run_to_rel_pos(position_sp=-90)
 
 
 

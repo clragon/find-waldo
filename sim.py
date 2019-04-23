@@ -19,7 +19,6 @@ class sim():
     radius = 15
     diameter = 140
     pointer = 100
-    point_dis = 40
 
 
     def __init__(self):

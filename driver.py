@@ -13,9 +13,6 @@ class driver(object):
 
     # default conditions: robot is facing right and is at pos 0,0 at the bottom left of the coordinates system.
 
-    # one unit of the coordinate system in cm
-    unit = 4.5
-
     # orientation variables
     x_source = 0
     y_source = 0
@@ -31,9 +28,6 @@ class driver(object):
 
         # variable for pointing status of the robot
         self.pointing = False
-
-        # angle at which to turn to point at a coordinate which is 1 times thepointer away.
-        self.point_angle = self.calc_angle(self.robot.point_dis, self.robot.pointer)
 
 
     # return angle to turn by for new coordinates
@@ -58,7 +52,6 @@ class driver(object):
 
         if (self.pointing):
 
-            self.robot.turn(-point_angle)
             self.robot.drive(self.robot.pointer)
             self.robot.turn(self.a_source)
             self.a_source = 0
@@ -90,9 +83,6 @@ class driver(object):
         # length we have to move by
         hypo = self.calc_hypo(x_diff, y_diff)  
 
-        # debug print for calculated variables
-        # print("move: {} | x: {} | y: {} | {} | {} | a: {} | ang: {} | hy: {} | xd: {} | yd: {}".format(len(log), (x_target / unit), (y_target / unit), x_diff < 0, y_diff < 0, a_source, angle, hypo, x_diff, y_diff))
-
         # set pointer variable for next run
         self.pointing = point
 
@@ -105,7 +95,7 @@ class driver(object):
         self.robot.drive(hypo)
 
         # point at the coordinates
-        if (point): robot.turn(point_angle)
+        if (point): robot.point(4000)
 
         # set new global coordinates
         self.x_source = x_target
