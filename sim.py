@@ -3,8 +3,7 @@
 # necessary libraries
 import turtle
 import time
-# values from the actual robot
-from robot import robot
+
 
 class sim():
 
@@ -14,13 +13,13 @@ class sim():
 
 
     # emulating robot values for compatibility. The turtle does not need these.
-
-    base_speed = robot.base_speed
-    base_ramp = robot.base_ramp
-    radius = robot.radius
-    diameter = robot.diameter
-    pointer = robot.pointer
-    point_dis = robot.point_dis
+    
+    base_speed = 400
+    base_ramp=600
+    radius = 15
+    diameter = 140
+    pointer = 100
+    point_dis = 40
 
 
     def __init__(self):
