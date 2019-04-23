@@ -23,28 +23,27 @@ class robot():
     base_ramp=600
 
 
-    # radius of a wheel (cm)
-    radius = 1.5
+    # radius of a wheel (mm)
+    radius = 15
 
-    # diameter between the two wheels (cm)
-    diameter = 14
+    # diameter between the two wheels (mm)
+    diameter = 140
 
     
-    # pointer length
-    pointer = 10
+    # pointer length (mm)
+    pointer = 100
 
-    # pointer distance to the center of the robot
-    point_dis = 4
+    # pointer distance to the center of the robot (mm)
+    point_dis = 40
 
 
     def __init__(self):
 
-        # calcultaing the circumfence so we can find out 
-        # how much degrees we need to turn forward to move 1 cm
+        # calcultaing the circumfence (mm)
         self.circ = 2 * math.pi * self.radius
 
         # degrees for one mm
-        self.one_mm = 0.1 / (self.circ / 360)
+        self.one_mm = 1 / (self.circ / 360)
 
         # circumfence of the turning circle of both wheels
         self.rob_circ = 2 * math.pi * (self.diameter / 2)
@@ -67,6 +66,11 @@ class robot():
         self.mR.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=self.base_speed)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
+
+    # robot text to speak
+    def sag(self, text):
+
+
 
     # TODO: implement method to lower or rise pointer
 
