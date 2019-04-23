@@ -5,7 +5,8 @@ import cv2
 import numpy as np
 import time
 
-
+from image import Image
+from cam_config import REAL_IMAGE_WIDTH_IN_MM, REAL_IMAGE_HEIGHT_IN_MM
 
 class cam():
     def take_snapshot(self, url):   
@@ -18,7 +19,8 @@ class cam():
         
         # Finally decode the array to OpenCV usable format ;) 
         img = cv2.imdecode(imgNp,-1)
-        return img
+
+        return Image(data=img, width_in_mm=REAL_IMAGE_WIDTH_IN_MM, height_in_mm=REAL_IMAGE_HEIGHT_IN_MM)
 
     def __init__(self):
         print ("__init__")

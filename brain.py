@@ -4,9 +4,10 @@ from keras.optimizers import RMSprop
 import numpy as np
 from PIL import Image
 from scipy.misc import imresize
+import matplotlib.pyplot as plt
 
 from tiramisu import create_tiramisu
-from brain_config import MU, STD, ROBOT_IMG_SIZE
+from brain_config import MU, STD, ROBOT_IMG_SIZE, CONFIDENCE
 
 
 def load_image(pil_img, img_sz=None):
@@ -78,7 +79,8 @@ def localize_waldo(pixel_probs, confidence=0.7):
     :param confidence:
     :return: y and x coordinate if Waldo was found, None otherwise
     """
-    r = np.nonzero(pixel_probs > 0.7)
+    print("Min prob: {}, max prob: {}".format(np.min(pixel_probs), np.max(pixel_probs)))
+    r = np.nonzero(pixel_probs > confidence)
     if len(r) < 2:
         # Confidence is too low, Waldo was not found
         return None
@@ -150,7 +152,9 @@ class Brain(object):
         img_w_mm, img_h_mm = robot_image.get_size_in_mm()
         img_size = ROBOT_IMG_SIZE  # TODO: need to fine-tune this to suitable waldo scale
         pixel_probs = self.predict_pixel_probabilities(Image.fromarray(img), img_size)
-        r = localize_waldo(pixel_probs)
+        plt.imshow(pixel_probs, cmap='gray')
+        plt.show()
+        r = localize_waldo(pixel_probs, CONFIDENCE)
         out_width, out_height = pixel_probs.shape[1], pixel_probs.shape[0]
 
         if r is None:
