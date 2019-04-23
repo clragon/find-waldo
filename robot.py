@@ -74,13 +74,11 @@ class robot():
 
 
     # point for x ms
-    def point(self, ms):
-        # TODO: check how many degrees is "pointing"
-        self.mP.run_to_rel_pos(position_sp=90)
-        # move back after ms
-        time.sleep(ms * 1000)
-        # TODO: check how many degrees is "not pointing"
-        self.mP.run_to_rel_pos(position_sp=-90)
+    def point(self, do_point):
+        if (do_point):
+            self.mP.run_to_abs_pos(position_sp=90)
+        else:
+            self.mP.run_to_rel_pos(position_sp=0)
 
 
 

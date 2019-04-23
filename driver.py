@@ -52,6 +52,7 @@ class driver(object):
 
         if (self.pointing):
 
+            self.robot.point(False)
             self.robot.drive(self.robot.pointer)
             self.robot.turn(self.a_source)
             self.a_source = 0
@@ -95,7 +96,7 @@ class driver(object):
         self.robot.drive(hypo)
 
         # point at the coordinates
-        if (point): robot.point(4000)
+        if (point): robot.point(True)
 
         # set new global coordinates
         self.x_source = x_target
