@@ -15,4 +15,4 @@ Execute find_waldo.py on the laptop.
 
 ## Further documentation
 RPyC (pronounced as are-pie-see), or Remote Python Call:
-https://ev3dev-lang.readthedocs.io/projects/python-ev3dev/en/stable/rpyc.html
+[remote ev3dev](https://ev3dev-lang.readthedocs.io/projects/python-ev3dev/en/stable/rpyc.html)
