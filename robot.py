@@ -43,8 +43,8 @@ class robot():
         # how much degrees we need to turn forward to move 1 cm
         self.circ = 2 * math.pi * self.radius
 
-        # degrees for one cm
-        self.one_cm = 1 / (self.circ / 360)
+        # degrees for one mm
+        self.one_mm = 0.1 / (self.circ / 360)
 
         # circumfence of the turning circle of both wheels
         self.rob_circ = 2 * math.pi * (self.diameter / 2)
@@ -53,10 +53,10 @@ class robot():
         self.turn = 360 / self.circ * ( self.rob_circ / 360)
 
 
-    # go x cm straight.
-    def fahre(self, cm, anfahren=base_ramp, bremsen=base_ramp):
-        self.mL.run_to_rel_pos(position_sp=cm * one_cm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
-        self.mR.run_to_rel_pos(position_sp=cm * one_cm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
+    # go x mm straight.
+    def fahre(self, mm, anfahren=base_ramp, bremsen=base_ramp):
+        self.mL.run_to_rel_pos(position_sp=mm * one_mm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
+        self.mR.run_to_rel_pos(position_sp=mm * one_mm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
         self.mR.wait_while('running')
         self.mL.wait_while('running')
             
