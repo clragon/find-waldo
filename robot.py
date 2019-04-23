@@ -11,11 +11,11 @@ from ev3dev2.motor import MoveSteering, OUTPUT_B, OUTPUT_C
 
 class robot():
 
-    # create objects for left motor (output B) and right motor (output C)
+    # create objects for left motor (output B) and right motor (output C) as well as a pointer motor (output A)
+    mP = LargeMotor('outA'); mP.stop_action = 'hold'
     mL = LargeMotor('outB'); mL.stop_action = 'hold'
     mR = LargeMotor('outC'); mR.stop_action = 'hold'
-
-    # TODO: implement motor for pointer here
+    
 
     # default motor speed value
     base_speed = 400
@@ -67,6 +67,7 @@ class robot():
         self.mR.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=self.base_speed)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
+
 
     # robot text to speak
     def sag(self, text):

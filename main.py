@@ -18,11 +18,12 @@ def main():
     from random import randint
 
     # one unit of the coordinate system in cm
-    unit = 4.5
+    unit = 45
 
     if(True):
         for x in range(0, 10): drivee.move(int(randint(-4, 4)) * unit, int(randint(-4, 4)) * unit)
-        
+    
+    
     # go back to starting point
     drivee.retreat()
 

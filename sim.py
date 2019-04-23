@@ -15,10 +15,10 @@ class sim():
     mR = None
     base_speed = 400
     base_ramp=600
-    radius = 1.5
-    diameter = 14
-    pointer = 10
-    point_dis = 4
+    radius = 15
+    diameter = 140
+    pointer = 100
+    point_dis = 40
 
 
     def __init__(self):
@@ -66,15 +66,16 @@ class sim():
 
 
     # go x cm straight.
-    def forward(self, cm, speed=base_speed, wait=True):
+    def fahre(self, mm, anfahren=base_ramp, bremsen=base_ramp):
         # times 10 to accumulate for size
         self.turtle.forward(cm * 10)
 
+
     # turn right by x degrees
-    def right(self, degrees, speed=base_speed, wait=True):
+    def drehen(self, degrees):
         self.turtle.right(degrees)
 
-    # turn left by x degrees
-    def left(self, degrees, speed=base_speed, wait=True):
-        self.turtle.left(degrees)
+
+    def sag(self, text):
+        print(text)
 
