@@ -78,5 +78,5 @@ class sim():
     def speak(self, text):
         print(text)
 
-    def point(self, ms):
-        time.sleep(ms)
+    def point(self, state):
+        print(state)
