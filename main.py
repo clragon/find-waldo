@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# import robot
-import sim
+import robot
+#import sim
 import driver
 import time
 
