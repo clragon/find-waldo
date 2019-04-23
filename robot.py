@@ -5,6 +5,7 @@ import math
 
 # Import all libraries necessary to run ev3
 # from ev3dev.ev3 import *
+from ev3dev.ev3 import Sound
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM
 from ev3dev2.motor import MoveSteering, OUTPUT_B, OUTPUT_C
 
@@ -60,16 +61,16 @@ class robot():
         self.mL.wait_while('running')
             
 
-    # turn left by x degrees
+    # turn right by x degrees
     def drehen(self, degrees):
-        self.mL.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=self.base_speed)
-        self.mR.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=self.base_speed)
+        self.mL.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=self.base_speed)
+        self.mR.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=self.base_speed)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 
     # robot text to speak
     def sag(self, text):
-
+        Sound.speak(text)
 
 
     # TODO: implement method to lower or rise pointer
