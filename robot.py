@@ -2,6 +2,7 @@
 
 # libraries for calculations
 import math
+import time
 
 # Import all libraries necessary to run ev3
 # from ev3dev.ev3 import *
@@ -74,7 +75,15 @@ class robot():
         Sound.speak(text)
 
 
-    # TODO: implement method to lower or rise pointer
+    # point for x ms
+    def point(self, ms):
+        # TODO: check how many degrees is "pointing"
+        self.mP.run_to_abs_pos(position_sp=10)
+        # move back after ms
+        time.sleep(ms)
+        # TODO: check how many degrees is "not pointing"
+        self.mP.run_to_abs_pos(position_sp=0)
+
 
 
 
