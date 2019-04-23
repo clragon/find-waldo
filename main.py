@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 import robot
-#import sim
+import sim
 import driver
 import time
 
 def main():
 
-    robot = sim.sim()
-    drivee = driver.driver(robot)
+    vehicle = sim.sim()
+    drivee = driver.driver(vehicle)
 
     # starting at 0,0
     drivee.log.append([0, 0])
