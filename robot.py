@@ -5,6 +5,7 @@ import math
 
 # Import all libraries necessary to run ev3
 # from ev3dev.ev3 import *
+from ev3dev.ev3 import Sound
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM
 from ev3dev2.motor import MoveSteering, OUTPUT_B, OUTPUT_C
 
@@ -23,28 +24,27 @@ class robot():
     base_ramp=600
 
 
-    # radius of a wheel (cm)
-    radius = 1.5
+    # radius of a wheel (mm)
+    radius = 15
 
-    # diameter between the two wheels (cm)
-    diameter = 14
+    # diameter between the two wheels (mm)
+    diameter = 140
 
     
-    # pointer length
-    pointer = 10
+    # pointer length (mm)
+    pointer = 100
 
-    # pointer distance to the center of the robot
-    point_dis = 4
+    # pointer distance to the center of the robot (mm)
+    point_dis = 40
 
 
     def __init__(self):
 
-        # calcultaing the circumfence so we can find out 
-        # how much degrees we need to turn forward to move 1 cm
+        # calcultaing the circumfence (mm)
         self.circ = 2 * math.pi * self.radius
 
-        # degrees for one cm
-        self.one_cm = 1 / (self.circ / 360)
+        # degrees for one mm
+        self.one_mm = 1 / (self.circ / 360)
 
         # circumfence of the turning circle of both wheels
         self.rob_circ = 2 * math.pi * (self.diameter / 2)
@@ -53,31 +53,25 @@ class robot():
         self.turn = 360 / self.circ * ( self.rob_circ / 360)
 
 
-    # go x cm straight.
-    def forward(self, cm, speed=base_speed, wait=True):
-        self.mL.run_to_rel_pos(position_sp=cm * one_cm, speed_sp=speed, ramp_up_sp=self.base_ramp, ramp_down_sp=self.base_ramp)
-        self.mR.run_to_rel_pos(position_sp=cm * one_cm, speed_sp=speed, ramp_up_sp=self.base_ramp, ramp_down_sp=self.base_ramp)
-        if (wait):
-            self.mR.wait_while('running')
-            self.mL.wait_while('running')
-
+    # go x mm straight.
+    def fahre(self, mm, anfahren=base_ramp, bremsen=base_ramp):
+        self.mL.run_to_rel_pos(position_sp=mm * one_mm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
+        self.mR.run_to_rel_pos(position_sp=mm * one_mm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
+        self.mR.wait_while('running')
+        self.mL.wait_while('running')
+            
 
     # turn right by x degrees
-    def right(self, degrees, speed=base_speed, wait=True):
-        self.mL.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=speed)
-        self.mR.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=speed)
-        if (wait):
-            self.mL.wait_while('running')
-            self.mR.wait_while('running')
+    def drehen(self, degrees):
+        self.mL.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=self.base_speed)
+        self.mR.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=self.base_speed)
+        self.mL.wait_while('running')
+        self.mR.wait_while('running')
 
+    # robot text to speak
+    def sag(self, text):
+        Sound.speak(text)
 
-    # turn left by x degrees
-    def left(self, degrees, speed=base_speed, wait=True):
-        mL.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=speed)
-        mR.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=speed)
-        if (wait):
-            mL.wait_while('running')
-            mR.wait_while('running')
 
     # TODO: implement method to lower or rise pointer
 
