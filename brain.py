@@ -6,14 +6,14 @@ from PIL import Image
 from scipy.misc import imresize
 
 from tiramisu import create_tiramisu
-from brain_config import mu, std
+from brain_config import MU, STD, ROBOT_IMG_SIZE
 
 
-def load_image(img_file, img_sz=None):
+def load_image(pil_img, img_sz=None):
     if img_sz:
-        return np.array(Image.open(img_file).resize(img_sz, Image.NEAREST))
+        return np.array(pil_img.resize(img_sz, Image.NEAREST))
     else:
-        return np.array(Image.open(img_file))
+        return np.array(pil_img)
 
 
 def img_resize(img):
@@ -26,9 +26,9 @@ def img_resize(img):
     if nhpanels * 224 != w:
         new_w = (nhpanels + 1) * 224
     if new_h == h and new_w == w:
-        return (img / 255. - mu) / std
+        return (img / 255. - MU) / STD
     else:
-        return (imresize(img, (new_h, new_w)) / 255. - mu) / std
+        return (imresize(img, (new_h, new_w)) / 255. - MU) / STD
 
 
 def split_panels(img):
@@ -58,7 +58,7 @@ def combine_panels(img, panels):
 
 
 def prediction_mask(img, target):
-    layer1 = Image.fromarray(((img * std + mu) * 255).astype('uint8'))
+    layer1 = Image.fromarray(((img * STD + MU) * 255).astype('uint8'))
     layer2 = Image.fromarray(
         np.concatenate(
             4 * [np.expand_dims((225 * (1 - target)).astype('uint8'), axis=-1)],
@@ -86,11 +86,20 @@ def localize_waldo(pixel_probs, confidence=0.7):
     i_s, j_s = r
     mean_i = np.mean(i_s)
     mean_j = np.mean(j_s)
+    print("Found at x: {}/{}, y: {}/{}".format(mean_j, pixel_probs.shape[1], mean_i, pixel_probs.shape[0]))
     return int(round(mean_i)), int(round(mean_j))
 
 
 class Brain(object):
+    """
+    Encapsulates ML model that is used to find Waldo on input images.
+    """
     def __init__(self, train_model=False, trained_model_path=None):
+        """
+
+        :param train_model: True iff model should be trained from scratch
+        :param trained_model_path: path to trained model file
+        """
         self.trained_model_path = trained_model_path
 
         self.input_shape = (224, 224, 3)
@@ -104,6 +113,10 @@ class Brain(object):
             self.load_pretrained_model()
 
     def build_model(self):
+        """
+        Build inference network.
+        :return: Keras model
+        """
         img_input = Input(shape=self.input_shape)
         x = create_tiramisu(2, img_input, nb_layers_per_block=[4, 5, 7, 10, 12, 15], p=0.2, wd=1e-4)
         model = Model(img_input, x)
@@ -116,23 +129,29 @@ class Brain(object):
         return model
 
     def train(self):
+        """
+        Train model from scratch.
+        """
         pass
 
     def load_pretrained_model(self):
+        """
+        Load pretrained model file.
+        """
         self.model.load_weights(self.trained_model_path)
 
     def find_waldo(self, robot_image):
         """
-
+        Find Waldo on image taken by roboter.
         :param robot_image: should be of custom image wrapper
         :return: (x, y) coordinates in mm if Waldo was found, None otherwise
         """
         img = robot_image.get_pixel_values()
         img_w_mm, img_h_mm = robot_image.get_size_in_mm()
-        img_size = None  # TODO: need to fine-tune this to suitable waldo scale
-        pixel_probs = self.predict_pixel_probabilities(img, img_size)
+        img_size = ROBOT_IMG_SIZE  # TODO: need to fine-tune this to suitable waldo scale
+        pixel_probs = self.predict_pixel_probabilities(Image.fromarray(img), img_size)
         r = localize_waldo(pixel_probs)
-        out_width, out_height = pixel_probs.size[1], pixel_probs.size[0]
+        out_width, out_height = pixel_probs.shape[1], pixel_probs.shape[0]
 
         if r is None:
             return r
@@ -144,18 +163,12 @@ class Brain(object):
 
     def predict_pixel_probabilities(self, img, img_size):
         full_img = load_image(img, img_size)
-        # TODO: input image may be resized --> need to reconvert position to original
         full_img_r, full_pred = self.waldo_predict(full_img)
-        np.save('full_pred.npy', full_pred)
-        mask = prediction_mask(full_img_r, full_pred)
         return full_pred
 
     def waldo_predict(self, img):
         rimg = img_resize(img)
         panels = split_panels(rimg)
-        for i, panel in enumerate(panels):
-            im = Image.fromarray(((panel * std + mu) * 255).astype('uint8'))
-            im.save('panels/panel_{}.jpg'.format(i))
         pred_panels = self.model.predict(panels, batch_size=6)
         pred_panels = np.stack([reshape_pred(pred) for pred in pred_panels])
         return rimg, combine_panels(rimg, pred_panels)
