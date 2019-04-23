@@ -2,6 +2,9 @@
 
 # necessary libraries
 import turtle
+import time
+# values from the actual robot
+from robot import robot
 
 class sim():
 
@@ -11,14 +14,13 @@ class sim():
 
 
     # emulating robot values for compatibility. The turtle does not need these.
-    mL = None
-    mR = None
-    base_speed = 400
-    base_ramp=600
-    radius = 15
-    diameter = 140
-    pointer = 100
-    point_dis = 40
+
+    base_speed = robot.base_speed
+    base_ramp = robot.base_ramp
+    radius = robot.radius
+    diameter = robot.diameter
+    pointer = robot.pointer
+    point_dis = robot.point_dis
 
 
     def __init__(self):
@@ -66,16 +68,17 @@ class sim():
 
 
     # go x cm straight.
-    def fahre(self, mm, anfahren=base_ramp, bremsen=base_ramp):
-        # times 10 to accumulate for size
-        self.turtle.forward(cm * 10)
+    def drive(self, mm, anfahren=base_ramp, bremsen=base_ramp):
+        self.turtle.forward(mm)
 
 
     # turn right by x degrees
-    def drehen(self, degrees):
+    def turn(self, degrees):
         self.turtle.right(degrees)
 
 
-    def sag(self, text):
+    def speak(self, text):
         print(text)
 
+    def point(self, ms):
+        time.sleep(ms)

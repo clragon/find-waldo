@@ -2,12 +2,13 @@
 
 # libraries for calculations
 import math
+import time
 
 # Import all libraries necessary to run ev3
 # from ev3dev.ev3 import *
 from ev3dev.ev3 import Sound
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM
-from ev3dev2.motor import MoveSteering, OUTPUT_B, OUTPUT_C
+from ev3dev2.motor import MoveSteering, OUTPUT_A, OUTPUT_B, OUTPUT_C
 
 class robot():
 
@@ -54,7 +55,7 @@ class robot():
 
 
     # go x mm straight.
-    def fahre(self, mm, anfahren=base_ramp, bremsen=base_ramp):
+    def drive(self, mm, anfahren=base_ramp, bremsen=base_ramp):
         self.mL.run_to_rel_pos(position_sp=mm * one_mm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
         self.mR.run_to_rel_pos(position_sp=mm * one_mm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
         self.mR.wait_while('running')
@@ -62,7 +63,7 @@ class robot():
             
 
     # turn right by x degrees
-    def drehen(self, degrees):
+    def turn(self, degrees):
         self.mL.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=self.base_speed)
         self.mR.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=self.base_speed)
         self.mL.wait_while('running')
@@ -70,11 +71,19 @@ class robot():
 
 
     # robot text to speak
-    def sag(self, text):
+    def speak(self, text):
         Sound.speak(text)
 
 
-    # TODO: implement method to lower or rise pointer
+    # point for x ms
+    def point(self, ms):
+        # TODO: check how many degrees is "pointing"
+        self.mP.run_to_abs_pos(position_sp=10)
+        # move back after ms
+        time.sleep(ms)
+        # TODO: check how many degrees is "not pointing"
+        self.mP.run_to_abs_pos(position_sp=0)
+
 
 
 

@@ -53,9 +53,9 @@ class driver(object):
 
         if (self.pointing):
 
-            self.robot.drehen(-point_angle)
-            self.robot.fahre(self.robot.pointer)
-            self.robot.drehen(self.a_source)
+            self.robot.turn(-point_angle)
+            self.robot.drive(self.robot.pointer)
+            self.robot.turn(self.a_source)
             self.a_source = 0
 
             self.pointing = False
@@ -72,7 +72,7 @@ class driver(object):
         y_diff = y_target - self.y_source
 
         # turning back to default conditions
-        self.robot.drehen(self.a_source)
+        self.robot.turn(self.a_source)
         self.a_source = 0
 
         # angle we have to turn by
@@ -90,13 +90,13 @@ class driver(object):
         # account pointer for the length we move forward by
         if (point): hypo -= self.robot.pointer
         
-        self.robot.drehen(-angle)
+        self.robot.turn(-angle)
 
         # move forward
-        self.robot.fahre(hypo)
+        self.robot.drive(hypo)
 
         # point at the coordinates
-        if (point): robot.drehen(point_angle)
+        if (point): robot.turn(point_angle)
 
         # set new global coordinates
         self.x_source = x_target
@@ -120,5 +120,5 @@ class driver(object):
             self.move(x[0], x[1], point=False, logging=False)
         
         # revert angle at which the turtle rests
-        self.robot.drehen(self.a_source)
+        self.robot.turn(self.a_source)
         self.a_source = 0
