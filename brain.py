@@ -99,7 +99,7 @@ class Brain(object):
     def __init__(self, train_model=False, trained_model_path=None):
         """
 
-        :param train_model: True iff model should be trained from scratch
+        :param train_model: True if model should be trained from scratch
         :param trained_model_path: path to trained model file
         """
         self.trained_model_path = trained_model_path
