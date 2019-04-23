@@ -2,6 +2,7 @@
 
 # necessary libraries
 import turtle
+import time
 # values from the actual robot
 from robot import robot
 
@@ -79,3 +80,5 @@ class sim():
     def speak(self, text):
         print(text)
 
+    def point(self, ms):
+        time.sleep(ms)
