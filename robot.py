@@ -54,30 +54,19 @@ class robot():
 
 
     # go x cm straight.
-    def forward(self, cm, speed=base_speed, wait=True):
-        self.mL.run_to_rel_pos(position_sp=cm * one_cm, speed_sp=speed, ramp_up_sp=self.base_ramp, ramp_down_sp=self.base_ramp)
-        self.mR.run_to_rel_pos(position_sp=cm * one_cm, speed_sp=speed, ramp_up_sp=self.base_ramp, ramp_down_sp=self.base_ramp)
-        if (wait):
-            self.mR.wait_while('running')
-            self.mL.wait_while('running')
-
-
-    # turn right by x degrees
-    def right(self, degrees, speed=base_speed, wait=True):
-        self.mL.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=speed)
-        self.mR.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=speed)
-        if (wait):
-            self.mL.wait_while('running')
-            self.mR.wait_while('running')
-
+    def fahre(self, cm, anfahren=base_ramp, bremsen=base_ramp):
+        self.mL.run_to_rel_pos(position_sp=cm * one_cm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
+        self.mR.run_to_rel_pos(position_sp=cm * one_cm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
+        self.mR.wait_while('running')
+        self.mL.wait_while('running')
+            
 
     # turn left by x degrees
-    def left(self, degrees, speed=base_speed, wait=True):
-        mL.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=speed)
-        mR.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=speed)
-        if (wait):
-            mL.wait_while('running')
-            mR.wait_while('running')
+    def drehen(self, degrees):
+        self.mL.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=self.base_speed)
+        self.mR.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=self.base_speed)
+        self.mL.wait_while('running')
+        self.mR.wait_while('running')
 
     # TODO: implement method to lower or rise pointer
 
