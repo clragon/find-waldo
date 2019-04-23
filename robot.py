@@ -7,7 +7,7 @@ import math
 # from ev3dev.ev3 import *
 from ev3dev.ev3 import Sound
 from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM
-from ev3dev2.motor import MoveSteering, OUTPUT_B, OUTPUT_C
+from ev3dev2.motor import MoveSteering, OUTPUT_A, OUTPUT_B, OUTPUT_C
 
 class robot():
 
