@@ -25,10 +25,3 @@ class Image(object):
         """
         return self.data
 
-
-if __name__ == '__main__':
-    b = Image(height_in_mm=11)
-    b.height_in_mm = 3
-    b.width_in_mm = 2
-    print(b)
-
