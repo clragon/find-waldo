@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 
 # libraries for calculation and waiting
+from __future__ import print_function
 import math
 import time
+import sys
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 class driver(object):
 
@@ -72,7 +77,11 @@ class driver(object):
         y_diff = y_target - self.y_source
 
         # turning back to default conditions
-        self.robot.turn(self.a_source)
+        eprint("debug robot: ")
+        eprint(self.robot.turn)
+        eprint("debug a source: ")
+        eprint(self.a_source)
+        self.robot.turn_deg = self.a_source
         self.a_source = 0
 
         # angle we have to turn by
