@@ -67,8 +67,7 @@ class sim():
 
     # go x cm straight.
     def fahre(self, mm, anfahren=base_ramp, bremsen=base_ramp):
-        # times 10 to accumulate for size
-        self.turtle.forward(cm * 10)
+        self.turtle.forward(mm)
 
 
     # turn right by x degrees
