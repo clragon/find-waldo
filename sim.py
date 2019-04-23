@@ -66,15 +66,15 @@ class sim():
 
 
     # go x cm straight.
-    def fahre(self, mm, anfahren=base_ramp, bremsen=base_ramp):
+    def drive(self, mm, anfahren=base_ramp, bremsen=base_ramp):
         self.turtle.forward(mm)
 
 
     # turn right by x degrees
-    def drehen(self, degrees):
+    def turn(self, degrees):
         self.turtle.right(degrees)
 
 
-    def sag(self, text):
+    def speak(self, text):
         print(text)
 

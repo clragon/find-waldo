@@ -54,7 +54,7 @@ class robot():
 
 
     # go x mm straight.
-    def fahre(self, mm, anfahren=base_ramp, bremsen=base_ramp):
+    def drive(self, mm, anfahren=base_ramp, bremsen=base_ramp):
         self.mL.run_to_rel_pos(position_sp=mm * one_mm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
         self.mR.run_to_rel_pos(position_sp=mm * one_mm, speed_sp=self.base_speed, ramp_up_sp=anfahren, ramp_down_sp=bremsen)
         self.mR.wait_while('running')
@@ -62,7 +62,7 @@ class robot():
             
 
     # turn right by x degrees
-    def drehen(self, degrees):
+    def turn(self, degrees):
         self.mL.run_to_rel_pos(position_sp=-degrees * turn, speed_sp=self.base_speed)
         self.mR.run_to_rel_pos(position_sp=+degrees * turn, speed_sp=self.base_speed)
         self.mL.wait_while('running')
@@ -70,7 +70,7 @@ class robot():
 
 
     # robot text to speak
-    def sag(self, text):
+    def speak(self, text):
         Sound.speak(text)
 
 
