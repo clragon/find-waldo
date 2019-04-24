@@ -78,7 +78,7 @@ class robot():
 
     # robot text to speak; now remotely.
     def speak(self, text):
-        ev3.Sound.speak(text)
+        self.ev3.Sound.speak(text)
 
 
     # point for x ms
