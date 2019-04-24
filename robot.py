@@ -5,11 +5,7 @@ import math
 import time
 
 # Import all libraries necessary to run ev3
-# from ev3dev.ev3 import *
-from ev3dev.ev3 import Sound
-from ev3dev.core import LargeMotor, MediumMotor
-from ev3dev2.motor import SpeedDPS, SpeedRPM, SpeedRPS, SpeedDPM
-from ev3dev2.motor import MoveSteering, OUTPUT_A, OUTPUT_B, OUTPUT_C
+from ev3dev.ev3 import Sound, LargeMotor, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C
 
 class robot():
 
