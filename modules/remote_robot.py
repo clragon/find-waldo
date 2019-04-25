@@ -86,7 +86,7 @@ class robot(object):
         if (do_point):
             self.mP.run_to_abs_pos(position_sp=90)
         else:
-            self.mP.run_to_rel_pos(position_sp=0)
+            self.mP.run_to_abs_pos(position_sp=0)
 
 
 
