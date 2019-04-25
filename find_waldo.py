@@ -16,10 +16,9 @@ def find_waldo():
     Image(img)
 
     print("Initialize Robot...")
-
-
-    #print("Move robot to coordinates...")
     robot = Robot("192.168.137.43")
+
+    print("Move robot to coordinates...")
     robot.drive(20)
 
 if __name__ == '__main__':

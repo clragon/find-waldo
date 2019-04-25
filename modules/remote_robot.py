@@ -34,10 +34,10 @@ class Robot(object):
 
     def __init__(self, adress):
 
-        remote = rpyc.classic.connect(adress) # TODO: get EV3 hostname / IP adress for this field
+        self.remote = rpyc.classic.connect(adress) # TODO: get EV3 hostname / IP adress for this field
 
         # remote import of the ev3dev library
-        self.ev3 = remote.modules['ev3dev.ev3']
+        self.ev3 = self.remote.modules['ev3dev.ev3']
 
         # create objects for left motor (output B) and right motor (output C) as well as a pointer motor (output A)
         # create these objects over RPyC
