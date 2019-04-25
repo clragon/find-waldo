@@ -12,7 +12,7 @@ import rpyc
 # TODO: remove line
 # from ev3dev.ev3 import Sound, LargeMotor, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C
 
-class robot():    
+class robot(object):    
 
     # default motor speed value
     base_speed = 400
@@ -32,9 +32,9 @@ class robot():
     pointer = 160
 
 
-    def __init__(self):
+    def __init__(self, adress):
 
-        remote = rpyc.classic.connect('ev3dev') # TODO: get EV3 hostname / IP adress for this field
+        remote = rpyc.classic.connect(adress) # TODO: get EV3 hostname / IP adress for this field
 
         # remote import of the ev3dev library
         ev3 = remote.modules('ev3dev.ev3')

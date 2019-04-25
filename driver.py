@@ -19,9 +19,9 @@ class driver(object):
     a_source = 0
 
 
-    def __init__(self, arg):
+    def __init__(self, vehicle):
 
-        self.robot = arg
+        self.robot = vehicle
 
         # array to store past coordinates
         self.log = []
