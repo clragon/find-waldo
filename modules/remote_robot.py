@@ -110,10 +110,10 @@ class Robot(object):
             do_point (bool): True means lowered state, False means raised state.
         '''
         if (do_point):
-            self.mP.run_to_abs_pos(position_sp=90, speed_sp=base_speed)
+            self.mP.run_to_abs_pos(position_sp=90, speed_sp=self.base_speed)
             self.mP.wait_while('running')
         else:
-            self.mP.run_to_abs_pos(position_sp=0, speed_sp=base_speed)
+            self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed)
             self.mP.wait_while('running')
 
 
