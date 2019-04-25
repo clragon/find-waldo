@@ -85,8 +85,10 @@ class robot(object):
     def point(self, do_point):
         if (do_point):
             self.mP.run_to_abs_pos(position_sp=90)
+            self.mP.wait_while('running')
         else:
             self.mP.run_to_abs_pos(position_sp=0)
+            self.mP.wait_while('running')
 
 
 
