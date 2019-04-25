@@ -3,9 +3,8 @@
     "configurations": [
         {
             "name": "Download and Run main.py",
-            "type": "ev3devBrowser",
             "request": "launch",
-            "program": "/home/robot/${workspaceFolderBasename}/main.py"
+            "program": "/home/robot/${workspaceFolderBasename}/find_waldo.py"
         },
         {
             "name": "Download and Run Current File",

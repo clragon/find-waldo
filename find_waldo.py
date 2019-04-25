@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-import sys
-sys.path.insert(0, './modules')
+#import sys
+#sys.path.insert(0, './modules')
 
-from modules.remote_robot import robot_go
+from modules.remote_robot import robot
 from modules.cam import cam
 from modules.image import Image
 
@@ -18,8 +18,8 @@ def find_waldo():
     print("Initialize Robot...")
 
 
-    print("Move robot to coordinates...")
-    robot_go(10, 20)
+    #print("Move robot to coordinates...")
+    #robot()
 
 if __name__ == '__main__':
     find_waldo()

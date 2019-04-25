@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import time
 
-from image import Image
+from .image import Image
 from cam_config import REAL_IMAGE_WIDTH_IN_MM, REAL_IMAGE_HEIGHT_IN_MM
 
 class cam():
