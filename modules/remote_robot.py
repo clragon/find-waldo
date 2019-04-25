@@ -84,10 +84,10 @@ class robot(object):
     # point for x ms
     def point(self, do_point):
         if (do_point):
-            self.mP.run_to_abs_pos(position_sp=90)
+            self.mP.run_to_abs_pos(position_sp=90, speed_sp=base_speed)
             self.mP.wait_while('running')
         else:
-            self.mP.run_to_abs_pos(position_sp=0)
+            self.mP.run_to_abs_pos(position_sp=0, speed_sp=base_speed)
             self.mP.wait_while('running')
 
 
