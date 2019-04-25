@@ -33,7 +33,7 @@ class driver(object):
         self.pointing = False
 
 
-    # return angle to turn by for new coordinates
+    # return angle to turn by for new coordinates.
     def _calc_angle(self, x, y):
         '''Intern function. Do not call this from outside.
         
@@ -53,7 +53,7 @@ class driver(object):
         return math.degrees(math.atan2(y, x))
 
 
-    # return distance to new coordinates
+    # return distance to new coordinates.
     def _calc_hypo(self, x, y):
         '''Intern function. Do not call this from outside.
         
@@ -66,7 +66,7 @@ class driver(object):
         return math.sqrt(((x**2)+(y**2)))
 
 
-    # unpoint the robot
+    # unpoint the robot.
     def _unpoint(self):
         '''Intern function. Do not call this from outside.
         
@@ -83,7 +83,7 @@ class driver(object):
             self.pointing = False
 
 
-    # move to new coordinates
+    # move to new coordinates.
     def move(self, x_target, y_target, point=False, logging=True):
         '''Move the robot to new coordinates.
 
@@ -134,7 +134,7 @@ class driver(object):
         if (logging):
             log_cords(self.x_source, self.y_source)
 
-
+    # move retreat the robot back to the first coordinates.
     def retreat(self):
         '''Retreate the robot.
         
@@ -153,6 +153,8 @@ class driver(object):
         self.robot.turn(self.a_source)
         self.a_source = 0
 
+
+    # store a new set of coordinates.
     def log_cords(self, x_new, y_new):
         '''Appends coordinates to the log.
         
