@@ -3,7 +3,7 @@
 #import sys
 #sys.path.insert(0, './modules')
 
-from modules.remote_robot import robot
+from modules.remote_robot import Robot
 from modules.cam import cam
 from modules.image import Image
 
@@ -19,7 +19,8 @@ def find_waldo():
 
 
     #print("Move robot to coordinates...")
-    #robot()
+    robot = Robot("192.168.137.43")
+    robot.drive(20)
 
 if __name__ == '__main__':
     find_waldo()

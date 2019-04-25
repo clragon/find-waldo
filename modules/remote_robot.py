@@ -12,7 +12,7 @@ import rpyc
 # TODO: remove line
 # from ev3dev.ev3 import Sound, LargeMotor, MediumMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C
 
-class robot(object):    
+class Robot(object):    
 
     # default motor speed value
     base_speed = 400
@@ -37,13 +37,13 @@ class robot(object):
         remote = rpyc.classic.connect(adress) # TODO: get EV3 hostname / IP adress for this field
 
         # remote import of the ev3dev library
-        ev3 = remote.modules('ev3dev.ev3')
+        self.ev3 = remote.modules('ev3dev.ev3')
 
         # create objects for left motor (output B) and right motor (output C) as well as a pointer motor (output A)
         # create these objects over RPyC
-        mP = ev3.MediumMotor('outA'); mP.stop_action = 'hold'
-        mL = ev3.LargeMotor('outB'); mL.stop_action = 'hold'
-        mR = ev3.LargeMotor('outC'); mR.stop_action = 'hold'
+        self.mP = self.ev3.MediumMotor('outA'); self.mP.stop_action = 'hold'
+        self.mL = self.ev3.LargeMotor('outB'); self.mL.stop_action = 'hold'
+        self.mR = self.ev3.LargeMotor('outC'); self.mR.stop_action = 'hold'
 
         # no need to do calculations remotely (?).
 
