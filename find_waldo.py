@@ -3,6 +3,7 @@ import time
 import matplotlib.pyplot as plt
 
 from modules.remote_robot import Robot
+from modules.remote_robot import Driver
 from brain import Brain
 from modules.cam import Camera
 from cam_config import CAMERA_URL
@@ -11,8 +12,7 @@ from PIL import Image as PilImage
 
 
 def find_waldo():
-    # Distance from the center of the robot to the pointer
-    pointer = 80
+
     image_height = 280
 
     print("Taking a picture...")
@@ -37,26 +37,19 @@ def find_waldo():
 
     # Currently the robot drives backwards, reverse direction
     y = -y
-
-    # When arrived on the correct x coordinate, drive a litte further to set the pointer on this place
-    x = x + pointer
-
-    # Currently the robot drives backwards, reverse direction
     x = -x
     
-    # Initialize and command the robot
+    # Initialize a robot and a driver for it.
     print("Initialize Robot...")
     robot = Robot("192.168.137.43")
+    driver = Driver(robot)
 
+    # tell the driver to move to new coordniates.
     print("Move robot to coordinates: {} {}".format(x,y))
-    robot.drive(y)
-    robot.turn(90)
-    robot.drive(x)
-    print('Pointing')
-    robot.point(True)
-    robot.speak('I am pointing')
-    time.sleep(3)
-    robot.point(False)
+    driver.move(x, y, True)
+    driver.speak('I am pointing')
+    # tell the driver to drive back to it's original location.
+    driver.retreat()
 
 
 if __name__ == '__main__':
