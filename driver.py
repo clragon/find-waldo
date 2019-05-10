@@ -3,7 +3,7 @@
 # library for calculations
 import math
 
-class driver(object):
+class driver:
     '''A class to control an EV3 robot object.
     
     Supports moving inside a coordinate system.
