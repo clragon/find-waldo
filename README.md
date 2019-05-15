@@ -6,12 +6,21 @@ This is an app to find Waldo on a sheet of paper with a mobile phone camera, a L
 
 ## Run the application
 
+### Setup Network
+Connect the notebook to the internet. Check if WLAN hotspot is active. Start robot and connect to the hotspot, find the IP adress of the robot in the windows WLAN hotspot settings.
+
+
 ### Start Remote phyton call on the robot
-1. Connect via SSH
+1. Open putty and connect via SSH to the IP of the robot:
+	username robot
+	password maker 
 2. Run ./rpyc_server.sh
 
 ### Run main application
-Execute find_waldo.py on the laptop.
+Open "Anaconda Prompt", change directory to project find-waldo and type:
+activate waldo
+python find_waldo.py
+
 
 ## Further documentation
 RPyC (pronounced as are-pie-see), or Remote Python Call:
