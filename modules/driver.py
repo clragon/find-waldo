@@ -3,7 +3,7 @@
 # library for calculations
 import math
 
-class driver(object):
+class Driver:
     '''A class to control an EV3 robot object.
     
     Supports moving inside a coordinate system.
@@ -166,3 +166,14 @@ class driver(object):
             y_new (int): The y coordinate to be logged.
         '''
         self.log.append([x_new, y_new])
+    
+
+    def speak(text):
+        '''Text to speach.
+
+        proxy function for the robot.speak method.
+
+        Parameters:
+            text (str): The text that needs to be spoken.
+        '''
+        self.robot.speak(text)

@@ -6,7 +6,7 @@ import math
 # library for remote connection to the robot.
 import rpyc
 
-class Robot(object):
+class Robot:
     '''A handler class for an EV3. Connects remotely over RPyC.
     
     Implements basic functions for moving.
