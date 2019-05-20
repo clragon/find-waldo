@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
 #import robot
-import sim
-import driver
-import time
+from modules import *
 
 def main():
 

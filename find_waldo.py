@@ -3,23 +3,28 @@ import time
 import matplotlib.pyplot as plt
 
 from modules.remote_robot import Robot
-from modules.remote_robot import Driver
 from brain import Brain
 from modules.cam import Camera
+from modules.driver import Driver
 from cam_config import CAMERA_URL
 import numpy as np
 from PIL import Image as PilImage
+from config import *
 
 
 def find_waldo():
-
+    print("start finding waldo...")  
     image_height = 280
 
-    print("Taking a picture...")
-    cam = Camera()
-    img = cam.take_snapshot(CAMERA_URL)
-    if img is None:
-        exit("No image recorde")
+    #print("Taking a picture...")
+    #cam = Camera()
+    #img = cam.take_snapshot(CAMERA_URL)
+    #if img is None:
+    #    exit("No image recorde")
+
+    print("load image from folder...") 
+    img = PilImage.open('photo01.png')
+    img.show()
 
     print("Rec Waldo...")    
     brain = Brain(False, "model2_10200epochs.h5")
@@ -41,7 +46,8 @@ def find_waldo():
     
     # Initialize a robot and a driver for it.
     print("Initialize Robot...")
-    robot = Robot("192.168.137.43")
+    robot = Robot(IP_ADDRESS)
+
     driver = Driver(robot)
 
     # tell the driver to move to new coordniates.
