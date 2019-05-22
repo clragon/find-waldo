@@ -22,12 +22,13 @@ Connect the notebook to the internet. Check if WLAN hotspot is active. Start rob
 
 ### Install dependencies
 #### Create an environment with Anaconda
+##### Windows
 Open "Anaconda Prompt", change directory to project find-waldo and type:
 ```
 conda create -n waldo python=3.5.3
 conda activate waldo
 ```
-Then, install all the dependencies
+Then, install all the dependencies with `conda update --file ./environment-win.yml`
 ```
 conda install tensorflow
 pip install rpyc==3.3.0
@@ -35,6 +36,24 @@ conda install matplotlib
 conda install keras
 conda install pillow # this is for PIL
 conda install requests
+```
+
+##### Linux/Unix
+Open a terminal, change directory to project find-waldo and type:
+```
+sudo yum install freetype-devel libpng-devel
+conda create -n waldo python=3.5.3
+conda activate waldo
+```
+Then, install all the dependencies with `conda update --file ./environment-linux.yml`
+```
+conda install tensorflow
+pip3 install rpyc==3.3.0
+conda install matplotlib
+conda install keras
+conda install pillow # this is for PIL
+conda install requests
+pip install object-detection
 ```
 
 #### Export/Import the environment

@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-import requests
 import numpy as np
 from PIL import Image as PilImage
 
 from .image import Image
-from cam_config import REAL_IMAGE_WIDTH_IN_MM, REAL_IMAGE_HEIGHT_IN_MM
+from old_classes.cam_config import REAL_IMAGE_WIDTH_IN_MM, REAL_IMAGE_HEIGHT_IN_MM
 
 
 class Camera():
