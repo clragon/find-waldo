@@ -18,16 +18,24 @@ import os
 #     # tell the driver to drive back to it's original location.
 #     driver.retreat()
 
-def main():
-    # Code here
-    for i in range(1,38):
+def test_images():
+    for i in range(1,37):
         image = Image.open('docs/imgs/'+str(i)+'.jpg')
-        brain = AI(image)
+        brain = AI(image, 'models/frozen_inference_graph.pb')
         if brain.find_waldo() is True:
             print("Waldo found in {}.jpg".format(str(i)))
             image.crop(brain.get_waldo_box()).save("heads/waldo_"+str(i)+".jpg")
         else:
             print("Waldo not found in {}.jpg".format(str(i)))
+
+def main():
+    # Code here
+    image = Image.open('docs/photo/only_waldo.jpg')
+    brain = AI(image,'models/model2_10200epochs.h5')
+    if brain.find_waldo() is True:
+        print("Waldo found!")
+    else:
+        print("Waldo not found")
 
 ################################
 # Don't change the code below
@@ -39,4 +47,4 @@ if __name__ == '__main__':
     except OSError:
         print("Directory heads already initialized")
         pass
-    main()
+    test_images()
