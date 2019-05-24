@@ -10,7 +10,6 @@ This is an app to find Waldo on a sheet of paper with a mobile phone camera, a L
 - Hotspot with IP Forwarding enabled
 
 ## Run the application
-
 ### Setup Network
 Connect the notebook to the internet. Check if WLAN hotspot is active. Start robot and connect to the hotspot, find the IP adress of the robot in the windows WLAN hotspot settings.
 
@@ -56,13 +55,20 @@ conda install requests
 pip install object-detection
 ```
 
-#### Export/Import the environment
+###### Export/Import the environment
 ```
 conda env export > environment.yml
 ```
 
 ```
 conda update --file ./environment.yml
+```
+
+#### Setup PYTHONPATH
+Set the PYTHONPATH for object_detection
+```
+cd modules
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 ```
 
 ### Run main application
