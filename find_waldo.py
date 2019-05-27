@@ -8,9 +8,10 @@ import os
 
 
 def move_to_wally(robot, x, y):
-    robot.move_to(x, y)
-    robot.retreat()
-    robot.reset()
+    robot.move_hypo(x, y)
+    #robot.move_to(x, y)
+    #robot.retreat()
+    #robot.reset()
 
 
 def search_wally(image):

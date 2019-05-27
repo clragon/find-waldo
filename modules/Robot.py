@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from config import *
+import math
 
 class Robot:
     # orientation variables
@@ -24,6 +25,21 @@ class Robot:
             print("DEBUG: " + str(msg))
         else:
             print("DEBUG: " + str(msg) + " = " + str(val))
+
+    def move_hypo(self, x_target, y_target):
+        x_distance = self._distance(self.x_source, x_target)
+        y_distance = self._distance(self.y_source, y_target)
+        self.print_debug("X target (pixel):", x_target)
+        self.print_debug("Y target (pixel):", y_target)
+        self.print_debug("X distance (mm):", x_distance)
+        self.print_debug("Y distance (mm):", y_distance)
+        hypo = math.sqrt(x_distance**2 + y_distance**2)
+        angle = 90-math.degrees(math.asin(y_distance / hypo))
+        self.print_debug("Hypo:", hypo)
+        self.print_debug("Angle:", angle)
+        self.driver.drive(ROBOT_ARM_SIZE)
+        self.driver.turn(angle)
+        self.driver.drive(hypo-ROBOT_ARM_SIZE)
 
     # move to new coordinates.
     def move_to(self, x_target, y_target):
@@ -61,7 +77,6 @@ class Robot:
         # reset to initial status
         self.print_debug("Reset")
         self.driver.point()
-
 
     def get_driver(self):
         return self.driver
