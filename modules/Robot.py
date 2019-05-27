@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import math
-import numpy as np
+from config import *
 
 class Robot:
     # orientation variables
@@ -32,16 +31,17 @@ class Robot:
         # but the robot knows only millimeters
         x_distance = self._distance(self.x_source, x_target)
         y_distance = self._distance(self.y_source, y_target)
-
+        self.driver.unpoint()
         self.print_debug("X target (pixel):", x_target)
         self.print_debug("Y target (pixel):", y_target)
         self.print_debug("X distance (mm):", x_distance)
         self.print_debug("Y distance (mm):", y_distance)
         # robot distance between the arm and the center = 16cm
-        self.driver.drive(y_distance+160)
+        self.driver.drive(y_distance+ROBOT_ARM_SIZE)
         self.driver.turn(90)
-        self.driver.drive(x_distance-160)
+        self.driver.drive(x_distance-ROBOT_ARM_SIZE)
         self._set_position(x_target, y_target)
+        # self.driver.speak("Ehi Wally!")
         self.driver.point()
 
     def retreat(self):
@@ -53,9 +53,15 @@ class Robot:
         self.print_debug("X distance: ", x_distance)
         self.print_debug("Y distance: ", y_distance)
         self.driver.unpoint()
-        self.driver.drive(-x_distance+160)
+        self.driver.drive(-x_distance+ROBOT_ARM_SIZE)
         self.driver.turn(-90)
-        self.driver.drive(-160-y_distance)
+        self.driver.drive(-ROBOT_ARM_SIZE-y_distance)
+
+    def reset(self):
+        # reset to initial status
+        self.print_debug("Reset")
+        self.driver.point()
+
 
     def get_driver(self):
         return self.driver
