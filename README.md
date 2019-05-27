@@ -24,7 +24,7 @@ Connect the notebook to the internet. Check if WLAN hotspot is active. Start rob
 ##### Windows
 Open "Anaconda Prompt", change directory to project find-waldo and type:
 ```
-conda create -n waldo python=3.5.3
+conda create -n waldo python=3.5.3 pip
 conda activate waldo
 ```
 Then, install all the dependencies with `conda update --file ./environment-win.yml`
@@ -68,7 +68,7 @@ conda update --file ./environment.yml
 Set the PYTHONPATH for object_detection
 ```
 cd modules
-export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+export PYTHONPATH=/usr/lib/python2.7/site-packages:`pwd`:`pwd`/slim
 ```
 
 ### Run main application
