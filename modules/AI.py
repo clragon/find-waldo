@@ -67,7 +67,7 @@ class AI:
                 #print("({},{}),({},{})".format(xmin,ymin,xmax,ymax))
 
                 self.waldo_box = (xmin,ymin,xmax,ymax)
-                self.waldo_coords = (xmin+((xmax-xmin)/2),ymin+((ymax-ymin)/2))
+                self.waldo_coords = (xmin+((xmax-xmin)/2), height-ymin+((ymax-ymin)/2))
                 return True
 
     def get_waldo_coords(self):

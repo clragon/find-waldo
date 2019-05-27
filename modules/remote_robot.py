@@ -50,17 +50,17 @@ class Robot:
         self.mL = self.ev3.LargeMotor('outB'); self.mL.stop_action = 'hold'
         self.mR = self.ev3.LargeMotor('outC'); self.mR.stop_action = 'hold'
 
-        # calcultaing the circumfence (mm) of a wheel.
+        # calcultaing the circumference (mm) of a wheel.
         self.circ = 2 * math.pi * self.radius
 
         # caculating how many degrees a wheel has to turn to move one mm.
         self.one_mm = 1 / (self.circ / 360)
 
-        # calculating the circumfence of the turning circle of the robot.
+        # calculating the circumference of the turning circle of the robot.
         self.rob_circ = 2 * math.pi * (self.diameter / 2)
 
         # calculating how much degrees both wheels have to turn in order for the robot to turn one degree.
-        self.turn_deg = 360 / self.circ * ( self.rob_circ / 360)
+        self.turn_deg = 360 / self.circ * ( self.rob_circ)
 
 
     # drive straight for the given amount of mm. Optionally, speed and ramping can ge passed as parameters.
@@ -72,8 +72,9 @@ class Robot:
             ramp_up (int): amount of miliseconds until full speed.
             ramp_dw (int): amount of miliseconds until full stop.
         '''
-        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed-50, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
         self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+
         self.mR.wait_while('running')
         self.mL.wait_while('running')
             
@@ -86,8 +87,11 @@ class Robot:
         Parameters:
             degrees (int): How many degrees to turn to the right by.
         '''
-        self.mL.run_to_rel_pos(position_sp=-degrees * self.turn_deg, speed_sp=self.base_speed)
-        self.mR.run_to_rel_pos(position_sp=+degrees * self.turn_deg, speed_sp=self.base_speed)
+
+        arc=(degrees*self.rob_circ/(4*360))*16
+        print("Arc: ", arc)
+        self.mL.run_to_rel_pos(position_sp=-arc, speed_sp=self.base_speed)
+        self.mR.run_to_rel_pos(position_sp=+arc, speed_sp=self.base_speed)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 
@@ -103,18 +107,19 @@ class Robot:
 
 
     # raise or lower the pointer of the robot.
-    def point(self, do_point):
+    def point(self):
         '''Raise or lower the pointer of the robot.
         
         Parameters:
             do_point (bool): True means lowered state, False means raised state.
         '''
-        if (do_point):
-            self.mP.run_to_abs_pos(position_sp=120, speed_sp=self.base_speed)
-            self.mP.wait_while('running')
-        else:
-            self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed)
-            self.mP.wait_while('running')
+        self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
+        self.mP.wait_while('running')
+
+
+    def unpoint(self):
+        self.mP.run_to_rel_pos(position_sp=-50, speed_sp=self.base_speed/2)
+
 
 
 
