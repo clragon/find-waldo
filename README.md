@@ -80,6 +80,9 @@ python find_waldo.py
 RPyC (pronounced as are-pie-see), or Remote Python Call:
 [remote ev3dev](https://ev3dev-lang.readthedocs.io/projects/python-ev3dev/en/stable/rpyc.html)
 
+### UML class diagram
+![class overview](docs/class_overview.png)
+
 ## Issues
 **Python is complaining against Visual Studio Directory path**
 change environment variables

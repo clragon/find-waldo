@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from modules.AI import AI
+from modules.Brain import AI
 from PIL import Image
 import os
 import sys

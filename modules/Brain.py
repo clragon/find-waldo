@@ -5,26 +5,26 @@ import tensorflow as tf
 from PIL import Image,ImageFile
 from .object_detection.utils import label_map_util
 import os
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-ImageFile.LOAD_TRUNCATED_IMAGES=True
 
-class AI:
-    model_path = '' # default model
+class Brain:
+    model_path = ''
     image_path = ''
     image = ''
-    waldo_box = (0,0,0,0)   # (xmin,ymin,xmax,ymax)
-    waldo_coords = (0,0)    # Box's centre
+    waldo_box = (0, 0, 0, 0)    # (xmin,ymin,xmax,ymax)
+    waldo_coords = (0, 0)       # Box's centre
 
     def __init__(self, image = '', model_path = ''):
         # search for modelPath
         dirname = os.path.dirname(__file__)
         if image == "":
-            self.image = Image.open(os.path.join(dirname,'../docs/imgs/1.jpg'))
+            self.image = Image.open(os.path.join(dirname, '../docs/imgs/1.jpg'))
         else:
             self.image = image
 
         if model_path == "":
-            self.model_path = os.path.join(dirname,'../models/frozen_inference_graph.pb')
+            self.model_path = os.path.join(dirname, '../models/frozen_inference_graph.pb')
         else:
             self.model_path = model_path
 
@@ -72,6 +72,7 @@ class AI:
 
     def get_waldo_coords(self):
         return self.waldo_coords
+
     def get_waldo_box(self):
         return self.waldo_box
 

@@ -7,38 +7,28 @@ from config import *
 import rpyc
 
 
-class Robot:
+class Driver:
     '''A handler class for an EV3. Connects remotely over RPyC.
     
     Implements basic functions for moving.
 
     Driving straight, turning, speaking and pointing are supported.
     '''
+    base_speed = 0
+    base_ramp = 0
+    radius = 0
+    diameter = 0
+    pointer = 0
 
-    # default motor speed value (tc/s).
-    base_speed = 400
-
-    # default motor ramping up/down value (ms).
-    base_ramp = 600
-
-    # radius of a wheel (mm).
-    radius = 15
-
-    # diameter between the two wheels (mm).
-    diameter = ROBOT_DISTANCE_WHEEL
-
-    # pointer length (mm).
-    pointer = 160
-
-    def __init__(self, address):
-        '''Instantiate a new remote-robot object
-        
-        Parameters:
-            address (str): Pass the IP of your robot here.
-        '''
-
-        # establish a connection to the robot at the given IP.
+    def __init__(self, address, base_speed=MOTOR_BASE_SPEED, base_ramp=MOTOR_BASE_RAMPING, wheel_radius=WHEEL_RADIUS,
+                 diameter=ROBOT_DISTANCE_WHEEL, pointer=ROBOT_ARM_SIZE):
+        # Setup parameters
         self.remote = rpyc.classic.connect(address)
+        self.base_speed = base_speed
+        self.base_ramp = base_ramp
+        self.radius = wheel_radius
+        self.diameter = diameter
+        self.pointer = pointer
 
         # instantiate the EV3 dev module on the robot.
         self.ev3 = self.remote.modules['ev3dev.ev3']
@@ -69,11 +59,28 @@ class Robot:
             ramp_up (int): amount of miliseconds until full speed.
             ramp_dw (int): amount of miliseconds until full stop.
         '''
-        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed-50, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.drive_adjusted(mm, ramp_up, ramp_dw)
+
+        #self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        #self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+
+        #self.mR.wait_while('running')
+        #self.mL.wait_while('running')
+
+    def drive_adjusted(self, mm, ramp_up=base_ramp, ramp_dw=base_ramp):
+        '''Drive straight for the given amount of mm.
+
+        Parameters:
+            mm (int): The amount of milimeters to drive straight for.
+            ramp_up (int): amount of miliseconds until full speed.
+            ramp_dw (int): amount of miliseconds until full stop.
+        '''
+        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed-23, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
         self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
 
         self.mR.wait_while('running')
         self.mL.wait_while('running')
+
 
     # turn the robot to the right by given degrees. Minus degrees can be given to turn to the left.
     def turn(self, degrees):
@@ -93,12 +100,13 @@ class Robot:
 
     # let the robot speak the given text.
     def speak(self, text):
-        '''Output given text as speach.
-        
-        Parameters:
-            text (str): The text the robot will speak.
-        '''
-        self.ev3.Sound.speak(text)
+        if ENABLE_SOUND:
+            self.ev3.Sound.speak(text, espeak_opts='-a 200 -s 130').wait()
+
+    def beep(self):
+        if ENABLE_SOUND:
+            self.ev3.Sound.beep()
+
 
     # raise or lower the pointer of the robot.
     def point(self):
@@ -112,7 +120,6 @@ class Robot:
 
     def unpoint(self):
         self.mP.run_to_rel_pos(position_sp=-50, speed_sp=self.base_speed/2)
-
 
 
 

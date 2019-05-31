@@ -2,6 +2,8 @@
 
 from config import *
 import math
+from .Logger import Logger
+
 
 class Robot:
     # orientation variables
@@ -14,29 +16,22 @@ class Robot:
     def __init__(self, driver, scale_factor=1):
         self.driver = driver
         self.scale_factor = scale_factor
-        # array to store past coordinates
-        self.log = []
+        # Data structure where to store coordinates
+        self.coordinates = []
 
         # variable for pointing status of the robot
         self.point = False
 
-    def print_debug(self, msg, val=None):
-        if val is None:
-            print("DEBUG: " + str(msg))
-        else:
-            print("DEBUG: " + str(msg) + " = " + str(val))
-
     def move_hypo(self, x_target, y_target):
         x_distance = self._distance(self.x_source, x_target)
         y_distance = self._distance(self.y_source, y_target)
-        self.print_debug("X target (pixel):", x_target)
-        self.print_debug("Y target (pixel):", y_target)
-        self.print_debug("X distance (mm):", x_distance)
-        self.print_debug("Y distance (mm):", y_distance)
+        Logger.debug("Move to (X,Y): (" + str(x_target) + ", " + str(y_target) + ")")
+        Logger.debug("X distance (mm):", x_distance)
+        Logger.debug("Y distance (mm):", y_distance)
         hypo = math.sqrt(x_distance**2 + y_distance**2)
         angle = 90-math.degrees(math.asin(y_distance / hypo))
-        self.print_debug("Hypo:", hypo)
-        self.print_debug("Angle:", angle)
+        Logger.debug("Hypo:", hypo)
+        Logger.debug("Angle:", angle)
         self.driver.drive(ROBOT_ARM_SIZE)
         self.driver.turn(angle)
         self.driver.drive(hypo-ROBOT_ARM_SIZE)
@@ -48,26 +43,23 @@ class Robot:
         x_distance = self._distance(self.x_source, x_target)
         y_distance = self._distance(self.y_source, y_target)
         self.driver.unpoint()
-        self.print_debug("X target (pixel):", x_target)
-        self.print_debug("Y target (pixel):", y_target)
-        self.print_debug("X distance (mm):", x_distance)
-        self.print_debug("Y distance (mm):", y_distance)
-        # robot distance between the arm and the center = 16cm
+        Logger.debug("Move to (X,Y): (" + str(x_target) + ", " + str(y_target) + ")")
+        Logger.debug("X distance (mm):", x_distance)
+        Logger.debug("Y distance (mm):", y_distance)
         self.driver.drive(y_distance+ROBOT_ARM_SIZE)
         self.driver.turn(90)
         self.driver.drive(x_distance-ROBOT_ARM_SIZE)
         self._set_position(x_target, y_target)
-        # self.driver.speak("Ehi Wally!")
         self.driver.point()
+        self.driver.speak("Ciao Wally!")
 
     def retreat(self):
-        self.print_debug("Retreat")
+        Logger.debug("Retreat")
         x_distance = self._distance(self.x_source, 0)
         y_distance = self._distance(self.y_source, 0)
-        self.print_debug("X source: ", self.x_source)
-        self.print_debug("Y source: ", self.y_source)
-        self.print_debug("X distance: ", x_distance)
-        self.print_debug("Y distance: ", y_distance)
+        Logger.debug("Retreat to (X,Y): (" + str(self.x_source) + ", " + str(self.y_source) + ")")
+        Logger.debug("X distance: ", x_distance)
+        Logger.debug("Y distance: ", y_distance)
         self.driver.unpoint()
         self.driver.drive(-x_distance+ROBOT_ARM_SIZE)
         self.driver.turn(-90)
@@ -75,13 +67,14 @@ class Robot:
 
     def reset(self):
         # reset to initial status
-        self.print_debug("Reset")
+        Logger.debug("Reset to the default values")
         self.driver.point()
 
     def get_driver(self):
         return self.driver
 
     def _set_position(self, x, y):
+        Logger.debug("Setting new position ({},{})".format(x,y))
         self.x_source = x
         self.y_source = y
 
