@@ -3,7 +3,7 @@
 import numpy as np
 from PIL import Image as PilImage
 
-from .image import Image
+from modules.image import Image
 from old_classes.cam_config import REAL_IMAGE_WIDTH_IN_MM, REAL_IMAGE_HEIGHT_IN_MM
 
 

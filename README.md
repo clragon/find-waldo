@@ -6,10 +6,12 @@ This is an app to find Waldo on a sheet of paper with a mobile phone camera, a L
 - Lego Mindstorm ev3
 - Python 3.5.3
 - Pip
-- Anaconda
+- Anaconda (https://repo.anaconda.com/archive/Anaconda3-2019.03-Windows-x86_64.exe)
+    - Be sure the two boxes are checked
+    ![class overview](docs/anaconda_install.png)
 - Hotspot with IP Forwarding enabled
 
-## Run the application
+## Getting started
 ### Setup Network
 Connect the notebook to the internet. Check if WLAN hotspot is active. Start robot and connect to the hotspot, find the IP adress of the robot in the windows WLAN hotspot settings.
 
@@ -19,16 +21,21 @@ Connect the notebook to the internet. Check if WLAN hotspot is active. Start rob
 	password maker 
 2. Run ./rpyc_server.sh
 
-### Install dependencies
+### Setup Windows
 #### Create an environment with Anaconda
-##### Windows
-Open "Anaconda Prompt", change directory to project find-waldo and type:
+Open the Command Prompt and move inside the find-waldo folder
+```bash
+cd path for windows
 ```
+
+Type the following commands
+```bash
 conda create -n waldo python=3.5.3 pip
 conda activate waldo
 ```
-Then, install all the dependencies with `conda update --file ./environment-win.yml`
-```
+
+And then install all the dependencies with
+```bash
 conda install tensorflow
 pip install rpyc==3.3.0
 conda install matplotlib
@@ -37,14 +44,27 @@ conda install pillow # this is for PIL
 conda install requests
 ```
 
-##### Linux/Unix
-Open a terminal, change directory to project find-waldo and type:
+#### Setup the PYTHONPATH environment variable
+```bash
+cd modules
+setx PYTHONPATH "%cd%"
 ```
+
+### Setup Linux
+Open a terminal and move inside the find-waldo folder
+```bash
+cd path for linux
+# install dependencies for CentOS/Fedora
 sudo yum install freetype-devel libpng-devel
+```
+
+Then, create the Anaconda environment with
+```
 conda create -n waldo python=3.5.3
 conda activate waldo
 ```
-Then, install all the dependencies with `conda update --file ./environment-linux.yml`
+
+Then, install all the dependencies
 ```
 conda install tensorflow
 pip3 install rpyc==3.3.0
@@ -55,25 +75,15 @@ conda install requests
 pip install object-detection
 ```
 
-###### Export/Import the environment
-```
-conda env export > environment.yml
-```
-
-```
-conda update --file ./environment.yml
-```
-
-#### Setup PYTHONPATH
-Set the PYTHONPATH for object_detection
+#### Setup the PYTHONPATH environment variable
 ```
 cd modules
 export PYTHONPATH=/usr/lib/python2.7/site-packages:`pwd`:`pwd`/slim
 ```
 
-### Run main application
+### Start the application
 ```
-python find_waldo.py
+./find_waldo.py
 ```
 
 ## Further documentation

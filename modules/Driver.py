@@ -15,17 +15,24 @@ class Driver:
     Driving straight, turning, speaking and pointing are supported.
     '''
     base_speed = 0
-    base_ramp = 0
+    base_ramp_up = 0
+    base_ramp_dw = 0
     radius = 0
     diameter = 0
     pointer = 0
 
-    def __init__(self, address, base_speed=MOTOR_BASE_SPEED, base_ramp=MOTOR_BASE_RAMPING, wheel_radius=WHEEL_RADIUS,
-                 diameter=ROBOT_DISTANCE_WHEEL, pointer=ROBOT_ARM_SIZE):
+    def __init__(self, address,
+                 base_speed=MOTOR_BASE_SPEED,
+                 base_ramp_up=MOTOR_BASE_RAMP_UP,
+                 base_ramp_dw=MOTOR_BASE_RAMP_DOWN,
+                 wheel_radius=WHEEL_RADIUS,
+                 diameter=ROBOT_DISTANCE_WHEEL,
+                 pointer=ROBOT_ARM_SIZE):
         # Setup parameters
         self.remote = rpyc.classic.connect(address)
         self.base_speed = base_speed
-        self.base_ramp = base_ramp
+        self.base_ramp_up = base_ramp_up
+        self.base_ramp_dw = base_ramp_dw
         self.radius = wheel_radius
         self.diameter = diameter
         self.pointer = pointer
@@ -51,7 +58,7 @@ class Driver:
         self.turn_deg = 360 / self.circ * self.rob_circ
 
     # drive straight for the given amount of mm. Optionally, speed and ramping can ge passed as parameters.
-    def drive(self, mm, ramp_up=base_ramp, ramp_dw=base_ramp):
+    def drive(self, mm, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
         '''Drive straight for the given amount of mm.
 
         Parameters:
@@ -59,31 +66,13 @@ class Driver:
             ramp_up (int): amount of miliseconds until full speed.
             ramp_dw (int): amount of miliseconds until full stop.
         '''
-        self.drive_adjusted(mm, ramp_up, ramp_dw)
-
-        #self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
-        #self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
-
-        #self.mR.wait_while('running')
-        #self.mL.wait_while('running')
-
-    def drive_adjusted(self, mm, ramp_up=base_ramp, ramp_dw=base_ramp):
-        '''Drive straight for the given amount of mm.
-
-        Parameters:
-            mm (int): The amount of milimeters to drive straight for.
-            ramp_up (int): amount of miliseconds until full speed.
-            ramp_dw (int): amount of miliseconds until full stop.
-        '''
-        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed-23, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
         self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
-
-        self.mR.wait_while('running')
         self.mL.wait_while('running')
-
+        self.mR.wait_while('running')
 
     # turn the robot to the right by given degrees. Minus degrees can be given to turn to the left.
-    def turn(self, degrees):
+    def turn(self, degrees, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
         '''Turn to the right by the given degrees.
         
         It is possible to pass negative degrees resulting in turning to the left.
@@ -93,8 +82,8 @@ class Driver:
 
         arc=(degrees*self.rob_circ/(4*360))*16
         print("Arc: ", arc)
-        self.mL.run_to_rel_pos(position_sp=-arc, speed_sp=self.base_speed)
-        self.mR.run_to_rel_pos(position_sp=+arc, speed_sp=self.base_speed)
+        self.mL.run_to_rel_pos(position_sp=-arc, speed_sp=self.base_speed, ramp_up_sp=2900, ramp_down_sp=3000)
+        self.mR.run_to_rel_pos(position_sp=+arc, speed_sp=self.base_speed, ramp_up_sp=2000, ramp_down_sp=3000)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 

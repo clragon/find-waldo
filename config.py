@@ -11,10 +11,11 @@ ROBOT_ARM_SIZE = 160
 WHEEL_RADIUS = 15
 
 # motors configuration
-MOTOR_BASE_SPEED = 400
+MOTOR_BASE_SPEED = 200
 
 # default motor ramping up/down value (ms).
-MOTOR_BASE_RAMPING = 600
+MOTOR_BASE_RAMP_UP = 2700
+MOTOR_BASE_RAMP_DOWN = 2000
 
 # True or False
 ENABLE_SOUND = False
