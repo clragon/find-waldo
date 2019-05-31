@@ -8,16 +8,9 @@ from modules.Robot import Robot
 
 
 def move_to_wally(robot, x, y):
-    #robot.move_hypo(x, y)
-    #robot.move_to(x, y)
-    #robot.retreat()
-    #robot.reset()
-    # test
-    robot.get_driver().point()
-    robot.get_driver().drive(400)
-    robot.get_driver().turn(90)
-    robot.get_driver().turn(-90)
-    robot.get_driver().drive(-400)
+    robot.move_to(x, y)
+    robot.retreat()
+    robot.reset()
 
 
 def search_wally(image):
@@ -47,8 +40,8 @@ def main():
 
     robot = setup_robot(scale_factor)
     robot.get_driver().beep()
-    #(x, y) = search_wally(image)
-    move_to_wally(robot, 50, 50)
+    (x, y) = search_wally(image)
+    move_to_wally(robot, x, y)
 
 
 ################################
