@@ -68,7 +68,7 @@ class Driver:
             ramp_dw (int): amount of miliseconds until full stop.
         '''
         self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
-        self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up/2, ramp_down_sp=ramp_dw)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 
@@ -81,10 +81,10 @@ class Driver:
             degrees (int): How many degrees to turn to the right by.
         '''
 
-        arc=(degrees*self.rob_circ/(4*360))*16
+        arc=(degrees*self.rob_circ/(4*360))*(ROBOT_ARM_SIZE/10)
         print("Arc: ", arc)
         self.mL.run_to_rel_pos(position_sp=-arc, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
-        self.mR.run_to_rel_pos(position_sp=+arc, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mR.run_to_rel_pos(position_sp=+arc, speed_sp=self.base_speed, ramp_up_sp=ramp_up/2, ramp_down_sp=ramp_dw)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 

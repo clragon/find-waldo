@@ -56,7 +56,15 @@ def test_brain():
 
 def test_robot():
     Logger.debug("Testing robot")
-
+    image = LocalImage("docs/imgs/2.jpg")
+    robot = Robot(Driver(ROBOT_ADDRESS), image)
+    # robot.get_driver().drive(200)
+    robot.get_driver().turn(-90)
+    # robot.get_driver().drive(400)
+    robot.get_driver().turn(+180)
+    # robot.get_driver().drive(400)
+    robot.get_driver().turn(-90)
+    # robot.get_driver().drive(-200)
 
 
 ################################

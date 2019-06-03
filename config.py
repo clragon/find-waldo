@@ -5,10 +5,10 @@ ROBOT_ADDRESS = "192.168.137.210"
 CAMERA_ADDRESS = "192.168.43.137"
 
 # Distance between the two wheel in millimeter
-ROBOT_DISTANCE_WHEEL = 140
+ROBOT_DISTANCE_WHEEL = 160
 
 # Arm size in millimeter
-ROBOT_ARM_SIZE = 160
+ROBOT_ARM_SIZE = 135
 
 # wheels configuration
 WHEEL_RADIUS = 15
