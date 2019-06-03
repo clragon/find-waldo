@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-from modules.Brain import AI
+from modules.TFBrain import TFBrain
 from PIL import Image
 import os
 import sys
 
+
 def test_images():
     for i in range(1,15):
         image = Image.open('docs/imgs/'+str(i)+'.jpg')
-        brain = AI(image, 'models/frozen_inference_graph.pb')
+        brain = TFBrain(image, 'models/frozen_inference_graph.pb')
         if brain.find_waldo() is True:
             print("Waldo found in {}.jpg".format(str(i)))
             image.crop(brain.get_waldo_box()).save("heads/waldo_"+str(i)+".jpg")

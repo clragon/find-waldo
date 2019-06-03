@@ -1,47 +1,62 @@
 #!/usr/bin/env python3
-from PIL import Image
 import os
 from config import *
-from modules.Brain import Brain
+from modules.TFBrain import TFBrain as Brain
 from modules.Driver import Driver
 from modules.Robot import Robot
+from modules.Camera import Camera
+from modules.LocalImage import LocalImage
+from modules.Logger import Logger
 
 
-def move_to_wally(robot, x, y):
+def main():
+    # Setup the Head and get a picture
+    image = LocalImage("docs/imgs/2.jpg")
+    # image = LocalImage("docs/imgs/1.jpg")
+
+    # Setup the Robot
+    robot = Robot(Driver(ROBOT_ADDRESS), image)
+
+    # Setup the Brain
+    brain = Brain(image, 'models/frozen_inference_graph.pb')
+    if brain.find_waldo() is True:
+        (x, y) = brain.get_coords()
+        print("Waldo found! at ({}.{})".format(x, y))
+    else:
+        print("Waldo not found")
+        (x, y) = (50, 50)
+    image.get_scale_factor()
+    # Move to Wally
     robot.move_to(x, y)
     robot.retreat()
     robot.reset()
 
 
-def search_wally(image):
+def test_head():
+    Logger.debug("Testing head")
+    image = LocalImage("docs/imgs/1.jpg")
+    Logger.info("Local image loaded")
+    image = Camera(CAMERA_ADDRESS)
+    image.take_photo()
+    Logger.info("Take photo")
+    image.show()
+
+
+def test_brain():
+    Logger.debug("Testing brain")
+    # Setup the Brain
+    image = LocalImage("docs/imgs/1.jpg")
     brain = Brain(image,'models/frozen_inference_graph.pb')
     if brain.find_waldo() is True:
-        (x, y) = brain.get_waldo_coords()
-        print("Waldo found! at ({}.{})".format(x, y))
-        return (x, y)
+        (x, y) = brain.get_coords()
+        Logger.debug("Waldo found! at ({}.{})".format(x, y))
     else:
-        print("Waldo not found")
-        return (50, 50)
+        Logger.debug("Waldo not found!")
 
 
-def setup_robot(scale_factor):
-    # Create the Driver : The driver is the interface with the robot
-    driver = Driver(IP_ADDRESS, MOTOR_BASE_SPEED, MOTOR_BASE_RAMP_UP, MOTOR_BASE_RAMP_DOWN, WHEEL_RADIUS, ROBOT_DISTANCE_WHEEL, ROBOT_ARM_SIZE)
-    # Create the Robot : It performs actions through the driver
-    return Robot(driver, scale_factor)
+def test_robot():
+    Logger.debug("Testing robot")
 
-
-def main():
-    # Code here
-    image=Image.open("docs/imgs/2.jpg")
-    (width, height) = image.size
-    # 310 is the A3 size
-    scale_factor = (width/340)
-
-    robot = setup_robot(scale_factor)
-    robot.get_driver().beep()
-    (x, y) = search_wally(image)
-    move_to_wally(robot, x, y)
 
 
 ################################

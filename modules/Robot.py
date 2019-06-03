@@ -9,13 +9,14 @@ class Robot:
     # orientation variables
     x_source = 0
     y_source = 0
-    a_source = 0
     driver = None
     point = False
+    source_image = None
 
-    def __init__(self, driver, scale_factor=1):
+    def __init__(self, driver, source_image):
         self.driver = driver
-        self.scale_factor = scale_factor
+        self.source_image = source_image
+        Logger.debug("Robot init")
         # Data structure where to store coordinates
         self.coordinates = []
 
@@ -74,7 +75,7 @@ class Robot:
         return self.driver
 
     def _set_position(self, x, y):
-        Logger.debug("Setting new position ({},{})".format(x,y))
+        Logger.debug("Setting new position ({},{})".format(x, y))
         self.x_source = x
         self.y_source = y
 
@@ -82,5 +83,9 @@ class Robot:
         return self._pixel_to_millimeters(abs(target-source))
 
     def _pixel_to_millimeters(self, pixel_range):
-        return pixel_range/self.scale_factor
+        scale_factor = self.source_image.get_scale_factor()
+        Logger.debug("Transforming pixel to millimeters")
+        Logger.debug("Pixel range:", pixel_range)
+        Logger.debug("Scale factor:", scale_factor)
+        return pixel_range/scale_factor
 

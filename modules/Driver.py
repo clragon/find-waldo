@@ -14,6 +14,7 @@ class Driver:
 
     Driving straight, turning, speaking and pointing are supported.
     '''
+    remote_ip = ''
     base_speed = 0
     base_ramp_up = 0
     base_ramp_dw = 0
@@ -29,7 +30,7 @@ class Driver:
                  diameter=ROBOT_DISTANCE_WHEEL,
                  pointer=ROBOT_ARM_SIZE):
         # Setup parameters
-        self.remote = rpyc.classic.connect(address)
+        self.remote_ip = rpyc.classic.connect(address)
         self.base_speed = base_speed
         self.base_ramp_up = base_ramp_up
         self.base_ramp_dw = base_ramp_dw
@@ -38,7 +39,7 @@ class Driver:
         self.pointer = pointer
 
         # instantiate the EV3 dev module on the robot.
-        self.ev3 = self.remote.modules['ev3dev.ev3']
+        self.ev3 = self.remote_ip.modules['ev3dev.ev3']
 
         # create motor control objects with the remote EV3 dev module.
         self.mP = self.ev3.MediumMotor('outA'); self.mP.stop_action = 'hold'
@@ -82,8 +83,8 @@ class Driver:
 
         arc=(degrees*self.rob_circ/(4*360))*16
         print("Arc: ", arc)
-        self.mL.run_to_rel_pos(position_sp=-arc, speed_sp=self.base_speed, ramp_up_sp=2900, ramp_down_sp=3000)
-        self.mR.run_to_rel_pos(position_sp=+arc, speed_sp=self.base_speed, ramp_up_sp=2000, ramp_down_sp=3000)
+        self.mL.run_to_rel_pos(position_sp=-arc, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mR.run_to_rel_pos(position_sp=+arc, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 
@@ -95,7 +96,6 @@ class Driver:
     def beep(self):
         if ENABLE_SOUND:
             self.ev3.Sound.beep()
-
 
     # raise or lower the pointer of the robot.
     def point(self):
