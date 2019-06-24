@@ -5,6 +5,7 @@ import math
 from config import *
 # library for remote connection to the robot.
 import rpyc
+from .Logger import Logger
 
 
 class Driver:
@@ -21,6 +22,7 @@ class Driver:
     radius = 0
     diameter = 0
     pointer = 0
+    status = 1
 
     def __init__(self, address,
                  base_speed=MOTOR_BASE_SPEED,
@@ -30,33 +32,49 @@ class Driver:
                  diameter=ROBOT_DISTANCE_WHEEL,
                  pointer=ROBOT_ARM_SIZE):
         # Setup parameters
-        self.remote_ip = rpyc.classic.connect(address)
-        self.base_speed = base_speed
-        self.base_ramp_up = base_ramp_up
-        self.base_ramp_dw = base_ramp_dw
-        self.radius = wheel_radius
-        self.diameter = diameter
-        self.pointer = pointer
+        try:
+            self.remote_ip = rpyc.classic.connect(address)
+            self.base_speed = base_speed
+            self.base_ramp_up = base_ramp_up
+            self.base_ramp_dw = base_ramp_dw
+            self.radius = wheel_radius
+            self.diameter = diameter
+            self.pointer = pointer
 
-        # instantiate the EV3 dev module on the robot.
-        self.ev3 = self.remote_ip.modules['ev3dev.ev3']
+            # instantiate the EV3 dev module on the robot.
+            self.ev3 = self.remote_ip.modules['ev3dev.ev3']
 
-        # create motor control objects with the remote EV3 dev module.
-        self.mP = self.ev3.MediumMotor('outA'); self.mP.stop_action = 'hold'
-        self.mL = self.ev3.LargeMotor('outB'); self.mL.stop_action = 'hold'
-        self.mR = self.ev3.LargeMotor('outC'); self.mR.stop_action = 'hold'
+            # create motor control objects with the remote EV3 dev module.
+            self.mP = self.ev3.MediumMotor('outA'); self.mP.stop_action = 'hold'
+            self.mL = self.ev3.LargeMotor('outB'); self.mL.stop_action = 'hold'
+            self.mR = self.ev3.LargeMotor('outC'); self.mR.stop_action = 'hold'
 
-        # calculating the circumference (mm) of a wheel.
-        self.circ = 2 * math.pi * self.radius
+            # calculating the circumference (mm) of a wheel.
+            self.circ = 2 * math.pi * self.radius
 
-        # calculating how many degrees a wheel has to turn to move one mm.
-        self.one_mm = 1 / (self.circ / 360)
+            # calculating how many degrees a wheel has to turn to move one mm.
+            self.one_mm = 1 / (self.circ / 360)
 
-        # calculating the circumference of the turning circle of the robot.
-        self.rob_circ = 2 * math.pi * (self.diameter / 2)
+            # calculating the circumference of the turning circle of the robot.
+            self.rob_circ = 2 * math.pi * (self.diameter / 2)
 
-        # calculating how much degrees both wheels have to turn in order for the robot to turn one degree.
-        self.turn_deg = 360 / self.circ * self.rob_circ
+            # calculating how much degrees both wheels have to turn in order for the robot to turn one degree.
+            self.turn_deg = 360 / self.circ * self.rob_circ
+            self.set_online()
+
+        except Exception as e:
+            Logger.error("The Robot isn't reachable at", address)
+            Logger.error("Setting offline mode")
+            self.set_offline()
+
+    def is_online(self):
+        return self.status == 1
+
+    def set_offline(self):
+        self.status = 0
+
+    def set_online(self):
+        self.status = 1
 
     # drive straight for the given amount of mm. Optionally, speed and ramping can ge passed as parameters.
     def drive(self, mm, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
@@ -111,5 +129,37 @@ class Driver:
         self.mP.run_to_rel_pos(position_sp=-50, speed_sp=self.base_speed/2)
 
 
+class DriverOffline(Driver):
+    def __init__(self, base_speed=MOTOR_BASE_SPEED,
+                 base_ramp_up=MOTOR_BASE_RAMP_UP,
+                 base_ramp_dw=MOTOR_BASE_RAMP_DOWN,
+                 wheel_radius=WHEEL_RADIUS,
+                 diameter=ROBOT_DISTANCE_WHEEL,
+                 pointer=ROBOT_ARM_SIZE):
+        Logger.debug("Init Offline Driver")
+        self.base_speed = base_speed
+        self.base_ramp_up = base_ramp_up
+        self.base_ramp_dw = base_ramp_dw
+        self.radius = wheel_radius
+        self.diameter = diameter
+        self.pointer = pointer
+
+    def drive(self, mm, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
+        Logger.debug("Offline drive")
+
+    def turn(self, degrees, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
+        Logger.debug("Offline turn")
+
+    def speak(self, text):
+        Logger.debug("Offline speak")
+
+    def beep(self):
+        Logger.debug("Offline beep")
+
+    def point(self):
+        Logger.debug("Offline point")
+
+    def unpoint(self):
+        Logger.debug("Offline unpoint")
 
 

@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 from modules.TFBrain import TFBrain
-from PIL import Image
+from modules.LocalImage import LocalImage
 import os
 import sys
 
 
 def test_images():
     for i in range(1,15):
-        image = Image.open('docs/imgs/'+str(i)+'.jpg')
+        image = LocalImage('docs/imgs/'+str(i)+'.jpg')
         brain = TFBrain(image, 'models/frozen_inference_graph.pb')
         if brain.find_waldo() is True:
             print("Waldo found in {}.jpg".format(str(i)))
-            image.crop(brain.get_waldo_box()).save("heads/waldo_"+str(i)+".jpg")
+            image.crop(brain.get_box())
+            image.save("heads/waldo_"+str(i)+".jpg")
         else:
             sys.exit(-1)
 

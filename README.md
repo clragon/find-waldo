@@ -42,6 +42,8 @@ conda install matplotlib
 conda install keras
 conda install pillow # this is for PIL
 conda install requests
+conda install boto3
+
 ```
 
 #### Setup the PYTHONPATH environment variable
@@ -72,7 +74,7 @@ conda install matplotlib
 conda install keras
 conda install pillow # this is for PIL
 conda install requests
-pip install object-detection
+conda install boto3
 ```
 
 #### Setup the PYTHONPATH environment variable

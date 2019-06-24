@@ -109,3 +109,5 @@ venv.bak/
 find-waldo.iml
 
 heads/**
+config.json
+docs/photo/*.jpg

@@ -2,7 +2,7 @@
 ROBOT_ADDRESS = "192.168.137.210"
 
 # Camera IP address
-CAMERA_ADDRESS = "192.168.43.137"
+CAMERA_ADDRESS = "192.168.137.83"
 
 # Distance between the two wheel in millimeter
 ROBOT_DISTANCE_WHEEL = 160
@@ -24,5 +24,5 @@ MOTOR_BASE_RAMP_DOWN = 2000
 ENABLE_SOUND = False
 
 # Picture in millimeters
-PICTURE_WIDTH = 735
+PICTURE_WIDTH = 787
 PICTURE_HEIGHT = 535

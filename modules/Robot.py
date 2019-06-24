@@ -3,6 +3,7 @@
 from config import *
 import math
 from .Logger import Logger
+from .Driver import *
 
 
 class Robot:
@@ -14,7 +15,11 @@ class Robot:
     source_image = None
 
     def __init__(self, driver, source_image):
-        self.driver = driver
+        if not driver.is_online():
+            self.driver = DriverOffline()
+        else:
+            self.driver = driver
+
         self.source_image = source_image
         Logger.debug("Robot init")
         # Data structure where to store coordinates

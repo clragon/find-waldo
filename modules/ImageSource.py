@@ -1,6 +1,7 @@
 from .Logger import *
 import numpy as np
 from config import *
+from PIL import Image, ImageDraw
 
 
 class ImageSource:
@@ -38,3 +39,29 @@ class ImageSource:
         reshaped = image_np.reshape((im_height, im_width, 3))
         result = reshaped.astype(np.uint8)
         return result
+
+    def mark(self, box):
+        # img = Image.open("../docs/imgs/ti8m-group.jpg").convert("RGB")
+        empty = Image.new('RGBA', self.image.size, (255,255,255,0))
+        base = Image.open(self.image.filename).convert("RGBA")
+        result = ImageDraw.Draw(empty)
+        result.rectangle(box, outline="red")
+        out = Image.alpha_composite(base, empty)
+        out.save("heads/aws_out.png")
+
+    def crop(self, box):
+        if box is None:
+            box = self.box
+        self.image.crop(box)
+
+    def save(self, path):
+        self.image.save(path)
+
+    def get_binary(self):
+        return open(self.image.filename, 'rb').read()
+
+    def get_path(self):
+        return self.image.filename
+
+    def get_size(self):
+        return self.image.size
