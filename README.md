@@ -45,7 +45,7 @@ conda install tensorflow
 pip install rpyc==3.3.0
 conda install matplotlib
 conda install keras
-conda install pillow # PIL
+conda install pillow
 conda install requests
 conda install boto3
 
@@ -81,7 +81,7 @@ conda install tensorflow
 pip3 install rpyc==3.3.0
 conda install matplotlib
 conda install keras
-conda install pillow # PIL
+conda install pillow
 conda install requests
 conda install boto3
 ```
