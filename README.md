@@ -22,57 +22,59 @@ Connect the notebook to the internet. Check if WLAN hotspot is active. Start rob
 2. Run ./rpyc_server.sh
 
 ### Setup Windows
-#### Create an environment with Anaconda
-Open the Command Prompt and move inside the find-waldo folder
-```bash
-cd path for windows
-```
+Download the repository and extract the zip file.
+Then open a command prompt inside the find-waldo folder (Shift+right-click -> open command prompt here). 
 
+#### Create an environment with Anaconda
 Type the following commands
-```bash
+```cmd
 conda create -n waldo python=3.5.3 pip
 conda activate waldo
 ```
 
 And then install all the dependencies with
-```bash
+```cmd
 conda install tensorflow
 pip install rpyc==3.3.0
 conda install matplotlib
 conda install keras
-conda install pillow # this is for PIL
+conda install pillow # PIL
 conda install requests
 conda install boto3
 
 ```
 
 #### Setup the PYTHONPATH environment variable
-```bash
+```cmd
 cd modules
 setx PYTHONPATH "%cd%"
+cd ..
 ```
 
 ### Setup Linux
-Open a terminal and move inside the find-waldo folder
+Download the repository and extract the zip file.
+Then open a terminal inside the find-waldo folder.
+
+### Install dependencies
+Instal lthe necessary dependencies with
 ```bash
-cd path for linux
 # install dependencies for CentOS/Fedora
 sudo yum install freetype-devel libpng-devel
 ```
 
-Then, create the Anaconda environment with
-```
+#### Create an environment with Anaconda
+```bash
 conda create -n waldo python=3.5.3
 conda activate waldo
 ```
 
-Then, install all the dependencies
-```
+#### Install python dependencies in the environment
+```bash
 conda install tensorflow
 pip3 install rpyc==3.3.0
 conda install matplotlib
 conda install keras
-conda install pillow # this is for PIL
+conda install pillow # PIL
 conda install requests
 conda install boto3
 ```
@@ -81,6 +83,7 @@ conda install boto3
 ```
 cd modules
 export PYTHONPATH=/usr/lib/python2.7/site-packages:`pwd`:`pwd`/slim
+cd ..
 ```
 
 ### Start the application
@@ -89,13 +92,13 @@ export PYTHONPATH=/usr/lib/python2.7/site-packages:`pwd`:`pwd`/slim
 ```
 
 ## Further documentation
-RPyC (pronounced as are-pie-see), or Remote Python Call:
 [remote ev3dev](https://ev3dev-lang.readthedocs.io/projects/python-ev3dev/en/stable/rpyc.html)
+[ev3dev motors](https://ev3dev-lang.readthedocs.io/projects/python-ev3dev/en/stable/motors.html)
 
 ### UML class diagram
 ![class overview](docs/class_overview.png)
 
-## Issues
+## Known issues
 **Python is complaining against Visual Studio Directory path**
 change environment variables
 ```
