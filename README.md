@@ -6,9 +6,16 @@ This is an app to find Waldo on a sheet of paper with a mobile phone camera, a L
 - Lego Mindstorm ev3
 - Python 3.5.3
 - Pip
-- Anaconda (https://repo.anaconda.com/archive/Anaconda3-2019.03-Windows-x86_64.exe)
-    - Be sure the two boxes are checked
-    ![class overview](docs/anaconda_install.png)
+- Anaconda 
+    - [windows](https://repo.anaconda.com/archive/Anaconda3-2019.03-Windows-x86_64.exe)
+        - Be sure the two boxes are checked
+			<details>
+			  <summary>Installer screenshot</summary>
+			  <p>
+
+			 ![class overview](docs/anaconda_install.png)
+			</p></details>
+    - [linux](https://docs.anaconda.com/anaconda/install/linux/)
 - Hotspot with IP Forwarding enabled
 
 ## Getting started
