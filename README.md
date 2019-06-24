@@ -87,14 +87,14 @@ conda install boto3
 ```
 
 #### Setup the PYTHONPATH environment variable
-```
+```bash
 cd modules
 export PYTHONPATH=/usr/lib/python2.7/site-packages:`pwd`:`pwd`/slim
 cd ..
 ```
 
 ### Start the application
-```
+```bash
 ./find_waldo.py
 ```
 
