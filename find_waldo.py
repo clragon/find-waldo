@@ -24,6 +24,7 @@ def find_waldo():
         robot.retreat()
         robot.reset()
     else:
+        os.sys.exit()
 
 
 def find_face():
@@ -43,6 +44,15 @@ def find_face():
         robot.retreat()
         robot.reset()
     else:
+        os.sys.exit()
+
+
+def _distance(self, source, target):
+    return self._pixel_to_millimeters(abs(target-source))
+
+def _pixel_to_millimeters(self, pixel_range):
+    scale_factor = self.source_image.get_scale_factor()
+    return pixel_range/scale_factor
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from modules.robot import Robot
+from robot import Robot
 from modules.driver import Driver
 from modules.local_image import LocalImage
 from config import *
