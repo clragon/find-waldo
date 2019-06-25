@@ -6,8 +6,7 @@ from modules.tf_brain import TFBrain as Brain
 from modules.aws_brain import AWSBrain
 from modules.driver import Driver
 from modules.camera import Camera
-from robot import Robot
-
+from robot import Robotfrom PIL import Image
 from PIL import Image
 
 

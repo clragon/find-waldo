@@ -1,8 +1,8 @@
 # Robot IP address
-ROBOT_ADDRESS = "192.168.137.210"
+ROBOT_ADDRESS = ""
 
 # Camera IP address
-CAMERA_ADDRESS = "192.168.137.83"
+CAMERA_ADDRESS = ""
 
 # Distance between the two wheel in millimeter
 ROBOT_DISTANCE_WHEEL = 160
