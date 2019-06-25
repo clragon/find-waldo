@@ -1,50 +1,53 @@
-from driver import Driver
+# from modules.driver import Driver
+from modules.driver2 import Driver
 from config import ROBOT_ADDRESS
 import math
+import os
 
-class Robot:
-    driver = None
 
-    def __init__(self):
-        try:
-            self.driver = Driver(ROBOT_ADDRESS)
-        except Exception as ex:
-            print(ex)
+driver = None
 
-    # Forward
-    def Vorwärts(cm):
-        driver.drive(cm * 10)
+try:
+    # driver = Driver(ROBOT_ADDRESS)
+    driver = Driver()
+except Exception as ex:
+    print(ex)
+    os.sys.exit()
 
-    # Backwards
-    def Rückwärts(cm):
-        driver.drive(-(cm * 10))
-    
-    # Turn right
-    def Rechts(Grad):
-        driver.turn(Grad)
+# Forward
+def Vorwärts(cm):
+    driver.drive(cm * 10)
 
-    # Turn left
-    def Links(Grad):
-        driver.turn(-Grad)
-    
-    # Speak
-    def Sprich(Text):
-        driver.speak(Text)
-    
-    # Beep
-    def Beep():
-        driver.Beep()
+# Backwards
+def Rückwärts(cm):
+    driver.drive(-(cm * 10))
 
-    # Point
-    def Zeigen():
-        driver.point()
+# Turn right
+def Rechts(Grad):
+    driver.turn(Grad)
 
-    # Unpoint
-    def Nicht_zeigen():
-        driver.unpoint()
+# Turn left
+def Links(Grad):
+    driver.turn(-Grad)
 
-    # Calculate hypotenuse
-    def Hypotenuse(Länge, Höhe):
-        Strecke = math.sqrt(Länge**2 + Höhe**2)
-        Winkel = math.degrees(math.atan2(Höhe, Länge))
-        return Strecke, Winkel
+# Speak
+def Sprich(Text):
+    driver.speak(Text)
+
+# Beep
+def Beep():
+    driver.Beep()
+
+# Point
+def Zeigen():
+    driver.point()
+
+# Unpoint
+def Nicht_zeigen():
+    driver.unpoint()
+
+# Calculate hypotenuse
+def Hypotenuse(Länge, Höhe):
+    Strecke = math.sqrt(Länge**2 + Höhe**2)
+    Winkel = math.degrees(math.atan2(Höhe, Länge))
+    return Strecke, Winkel
