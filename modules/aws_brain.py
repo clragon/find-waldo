@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-from PIL import Image, ImageDraw
-from logger import *
-from local_image import ImageSource
 import boto3
 import json
 import os
@@ -22,14 +19,10 @@ class AWSBrain:
     box = (0, 0, 0, 0)
 
     def __init__(self, source, target):
-        Logger.debug("AWSBrain setup")
-        Logger.debug(source.get_path())
         self.source = source
         self.target = target
 
     def find_face(self):
-        Logger.debug("Face: ", self.source.get_path())
-        Logger.debug("Target image: ", self.target.get_path())
 
         x_start, y_start, x_end, y_end = self._get_position(self.source.get_binary(), self.target.get_binary())
         self.coords = (x_start, y_start)
@@ -54,7 +47,7 @@ class AWSBrain:
                 conf.__dict__ = json.load(open("config.json", 'r'))
                 client = boto3.client('rekognition', region_name=conf.region, aws_access_key_id=conf.aws_key_id, aws_secret_access_key=conf.aws_secret)
             except:
-                print("no aws credentials found")
+                raise Exception("No AWS credentials")
                 os.sys.exit()
 
         response = client.compare_faces(SourceImage={ 'Bytes': source_binary, }, TargetImage={ 'Bytes': target_binary, })
@@ -66,7 +59,7 @@ class AWSBrain:
         try:
             face = response["FaceMatches"][0]["Face"]["BoundingBox"]
         except:
-            print("no matches")
+            raise Exception("No matches")
             os.sys.exit()
 
         (px_width, px_height) = self.target.get_size()

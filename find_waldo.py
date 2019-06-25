@@ -3,11 +3,12 @@
 import os
 from config import *
 from modules.tf_brain import TFBrain as Brain
+from modules.aws_brain import AWSBrain
 from modules.driver import Driver
-from modules.robot import Robot
+from robot import Robot
 from modules.camera import Camera
 from modules.local_image import LocalImage
-from modules.aws_brain import AWSBrain
+
 from PIL import Image
 
 
