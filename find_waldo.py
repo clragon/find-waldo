@@ -8,10 +8,11 @@ from modules.robot import Robot
 from modules.camera import Camera
 from modules.local_image import LocalImage
 from modules.aws_brain import AWSBrain
+from PIL import Image
 
 
 def find_waldo():
-    target_image = LocalImage("docs/imgs/1.jpg")
+    target_image = Image.open("docs/imgs/1.jpg")
     # Setup the Robot
     # Setup the brain
     brain = Brain(target_image, 'models/frozen_inference_graph.pb')
@@ -32,7 +33,7 @@ def find_face():
     cam = Camera(CAMERA_ADDRESS, 8080)
     cam.set_offline()
     cam.take_photo()
-    group_image = LocalImage("docs/photo/ti8m-group.jpg")
+    group_image = Image.open("docs/photo/ti8m-group.jpg")
 
     aws_brain = AWSBrain(cam, group_image)
     if aws_brain.find_face():
