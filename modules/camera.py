@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
 from PIL import Image
-from logger import *
+from logger import Logger
 from image_source import ImageSource
 import urllib
 

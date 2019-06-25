@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import numpy as np
 import tensorflow as tf
 from PIL import Image,ImageFile

@@ -1,6 +1,6 @@
-from logger import *
 import numpy as np
 from config import *
+from logger import Logger
 from PIL import Image, ImageDraw
 
 

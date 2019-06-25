@@ -1,10 +1,10 @@
-#!/usr/bin/env python3
-
 # library for calculations (turning degrees, etc).
 import math
+# configuration file
 from config import *
 # library for remote connection to the robot.
 import rpyc
+# logging class
 from logger import Logger
 
 
@@ -31,41 +31,49 @@ class Driver:
                  wheel_radius=WHEEL_RADIUS,
                  diameter=ROBOT_DISTANCE_WHEEL,
                  pointer=ROBOT_ARM_SIZE):
-        # Setup parameters
-        try:
-            self.remote_ip = rpyc.classic.connect(address)
-            self.base_speed = base_speed
-            self.base_ramp_up = base_ramp_up
-            self.base_ramp_dw = base_ramp_dw
-            self.radius = wheel_radius
-            self.diameter = diameter
-            self.pointer = pointer
 
+
+        try:
+            # Try to connect to the robot
+            self.remote_ip = rpyc.classic.connect(address)
             # instantiate the EV3 dev module on the robot.
             self.ev3 = self.remote_ip.modules['ev3dev.ev3']
 
+        except:
+            Logger.error("The Robot isn't reachable at", address)
+            Logger.error("Setting offline mode")
+            self.set_offline()
+
+        try:
             # create motor control objects with the remote EV3 dev module.
             self.mP = self.ev3.MediumMotor('outA'); self.mP.stop_action = 'hold'
             self.mL = self.ev3.LargeMotor('outB'); self.mL.stop_action = 'hold'
             self.mR = self.ev3.LargeMotor('outC'); self.mR.stop_action = 'hold'
+        
+        except:
+            Logger.error("Motors arent set up correctly.")
+            os.exit()
 
-            # calculating the circumference (mm) of a wheel.
-            self.circ = 2 * math.pi * self.radius
+        self.base_speed = base_speed
+        self.base_ramp_up = base_ramp_up
+        self.base_ramp_dw = base_ramp_dw
+        self.radius = wheel_radius
+        self.diameter = diameter
+        self.pointer = pointer
 
-            # calculating how many degrees a wheel has to turn to move one mm.
-            self.one_mm = 1 / (self.circ / 360)
+        # calculating the circumference (mm) of a wheel.
+        self.circ = 2 * math.pi * self.radius
 
-            # calculating the circumference of the turning circle of the robot.
-            self.rob_circ = 2 * math.pi * (self.diameter / 2)
+        # calculating how many degrees a wheel has to turn to move one mm.
+        self.one_mm = 1 / (self.circ / 360)
 
-            # calculating how much degrees both wheels have to turn in order for the robot to turn one degree.
-            self.turn_deg = 360 / self.circ * self.rob_circ
-            self.set_online()
+        # calculating the circumference of the turning circle of the robot.
+        self.rob_circ = 2 * math.pi * (self.diameter / 2)
 
-        except Exception as e:
-            Logger.error("The Robot isn't reachable at", address)
-            Logger.error("Setting offline mode")
-            self.set_offline()
+        # calculating how much degrees both wheels have to turn in order for the robot to turn one degree.
+        self.turn_deg = 360 / self.circ * self.rob_circ
+        self.set_online()
+
 
     def is_online(self):
         return self.status == 1

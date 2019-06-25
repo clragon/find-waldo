@@ -22,9 +22,6 @@ def test_robot():
     robot.get_driver().drive(-200)
 
 
-################################
-# Don't change the code below
-#
 if __name__ == '__main__':
     try:
         os.mkdir("heads")

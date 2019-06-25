@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
-
-from config import *
-import math
 from logger import Logger
+from config import *
 from driver import *
+import math
 
 
 class Robot:

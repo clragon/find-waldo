@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import os
 from config import *
 from modules.tf_brain import TFBrain as Brain
@@ -51,9 +52,6 @@ def find_face():
         Logger.debug("Face not found")
 
 
-################################
-# Don't change the code below
-#
 if __name__ == '__main__':
     try:
         os.mkdir("heads")
