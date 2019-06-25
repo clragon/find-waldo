@@ -1,4 +1,3 @@
-from logger import Logger
 from config import *
 from driver import *
 import math
@@ -19,7 +18,6 @@ class Robot:
             self.driver = driver
 
         self.source_image = source_image
-        Logger.debug("Robot init")
         # Data structure where to store coordinates
         self.coordinates = []
 
@@ -29,16 +27,13 @@ class Robot:
     def move_hypo(self, x_target, y_target):
         x_distance = self._distance(self.x_source, x_target)
         y_distance = self._distance(self.y_source, y_target)
-        Logger.debug("Move to (X,Y): (" + str(x_target) + ", " + str(y_target) + ")")
-        Logger.debug("X distance (mm):", x_distance)
-        Logger.debug("Y distance (mm):", y_distance)
         hypo = math.sqrt(x_distance**2 + y_distance**2)
         angle = 90-math.degrees(math.asin(y_distance / hypo))
-        Logger.debug("Hypo:", hypo)
-        Logger.debug("Angle:", angle)
         self.driver.drive(ROBOT_ARM_SIZE)
         self.driver.turn(angle)
         self.driver.drive(hypo-ROBOT_ARM_SIZE)
+        self._set_position(x_target, y_target)
+        self.driver.point()
 
     # move to new coordinates.
     def move_to(self, x_target, y_target):
@@ -47,9 +42,6 @@ class Robot:
         x_distance = self._distance(self.x_source, x_target)
         y_distance = self._distance(self.y_source, y_target)
         self.driver.unpoint()
-        Logger.debug("Move to (X,Y): (" + str(x_target) + ", " + str(y_target) + ")")
-        Logger.debug("X distance (mm):", x_distance)
-        Logger.debug("Y distance (mm):", y_distance)
         self.driver.drive(y_distance+ROBOT_ARM_SIZE)
         self.driver.turn(90)
         self.driver.drive(x_distance-ROBOT_ARM_SIZE)
@@ -58,12 +50,8 @@ class Robot:
         self.driver.speak("Ciao Wally!")
 
     def retreat(self):
-        Logger.debug("Retreat")
         x_distance = self._distance(self.x_source, 0)
         y_distance = self._distance(self.y_source, 0)
-        Logger.debug("Retreat to (X,Y): (" + str(self.x_source) + ", " + str(self.y_source) + ")")
-        Logger.debug("X distance: ", x_distance)
-        Logger.debug("Y distance: ", y_distance)
         self.driver.unpoint()
         self.driver.drive(-x_distance+ROBOT_ARM_SIZE)
         self.driver.turn(-90)
@@ -71,14 +59,12 @@ class Robot:
 
     def reset(self):
         # reset to initial status
-        Logger.debug("Reset to the default values")
         self.driver.point()
 
     def get_driver(self):
         return self.driver
 
     def _set_position(self, x, y):
-        Logger.debug("Setting new position ({},{})".format(x, y))
         self.x_source = x
         self.y_source = y
 
@@ -87,8 +73,5 @@ class Robot:
 
     def _pixel_to_millimeters(self, pixel_range):
         scale_factor = self.source_image.get_scale_factor()
-        Logger.debug("Transforming pixel to millimeters")
-        Logger.debug("Pixel range:", pixel_range)
-        Logger.debug("Scale factor:", scale_factor)
         return pixel_range/scale_factor
 

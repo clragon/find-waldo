@@ -3,6 +3,8 @@ import tensorflow as tf
 from PIL import Image,ImageFile
 from object_detection.utils import label_map_util
 import os
+
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 

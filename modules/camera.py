@@ -1,5 +1,4 @@
 from PIL import Image
-from logger import Logger
 from image_source import ImageSource
 import urllib
 
@@ -11,7 +10,6 @@ class Camera(ImageSource):
     status = 1
 
     def __init__(self, address, port=8080):
-        Logger.debug("Setting up camera at", address)
         self.address = address
         self.port = port
 

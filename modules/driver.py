@@ -1,11 +1,6 @@
-# library for calculations (turning degrees, etc).
 import math
-# configuration file
 from config import *
-# library for remote connection to the robot.
 import rpyc
-# logging class
-from logger import Logger
 
 
 class Driver:
@@ -40,8 +35,6 @@ class Driver:
             self.ev3 = self.remote_ip.modules['ev3dev.ev3']
 
         except:
-            Logger.error("The Robot isn't reachable at", address)
-            Logger.error("Setting offline mode")
             self.set_offline()
 
         try:
@@ -51,7 +44,6 @@ class Driver:
             self.mR = self.ev3.LargeMotor('outC'); self.mR.stop_action = 'hold'
         
         except:
-            Logger.error("Motors arent set up correctly.")
             os.exit()
 
         self.base_speed = base_speed
