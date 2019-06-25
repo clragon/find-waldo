@@ -31,7 +31,7 @@ Start robot and connect to the hotspot, find the IP adress of the robot in the w
 
 ### Setup Windows
 Download the repository and extract the zip file.  
-Then open a command prompt inside the find-waldo folder (Shift+right-click -> open command prompt here). 
+Then open a command prompt inside the find-waldo folder (Shift+right-click -> "open command prompt here"). 
 
 #### Create an environment with Anaconda
 Type the following commands
@@ -107,9 +107,10 @@ cd ..
 ![class overview](docs/class_overview.png)
 
 ## Known issues
-**Python is complaining against Visual Studio Directory path**  
-change environment variables
-```
-VSINSTALLDIR=""
-VS90COMNTOOLS=""
-```
+- **Python is complaining against Visual Studio Directory path**  
+
+    change these environment variables:
+    ```
+    VSINSTALLDIR=""
+    VS90COMNTOOLS=""
+    ```

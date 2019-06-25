@@ -7,8 +7,6 @@ class ImageSource:
     image = None
     scale_factor = 0
 
-    def __init__(self):
-
     def show(self):
         self.image.show()
 
