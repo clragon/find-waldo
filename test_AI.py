@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from modules.TFBrain import TFBrain
-from modules.LocalImage import LocalImage
+from modules.tf_brain import TFBrain
+from modules.local_image import LocalImage
 import os
 import sys
 

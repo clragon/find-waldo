@@ -1,5 +1,5 @@
-from .ImageSource import ImageSource
-from .Logger import Logger
+from image_source import image_source
+from logger import logger
 from PIL import Image
 
 

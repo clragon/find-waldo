@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 import os
 from config import *
-from modules.TFBrain import TFBrain as Brain
-from modules.Driver import Driver
-from modules.Robot import Robot
-from modules.Camera import Camera
-from modules.LocalImage import LocalImage
-from modules.Logger import Logger
-from modules.awsBrain import AWSBrain
+from modules.tf_brain import TFBrain as Brain
+from modules.driver import Driver
+from modules.robot import Robot
+from modules.camera import Camera
+from modules.local_image import LocalImage
+from modules.logger import Logger
+from modules.aws_brain import AWSBrain
 
 
 def find_waldo():

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 from PIL import Image, ImageDraw
-from .Logger import *
-from .LocalImage import ImageSource
+from logger import *
+from local_image import ImageSource
 import boto3
 import json
 import os

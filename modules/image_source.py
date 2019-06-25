@@ -1,4 +1,4 @@
-from .Logger import *
+from logger import *
 import numpy as np
 from config import *
 from PIL import Image, ImageDraw

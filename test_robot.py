@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from modules.Robot import Robot
-from modules.Driver import Driver
-from modules.Logger import Logger
-from modules.LocalImage import LocalImage
+from modules.robot import Robot
+from modules.driver import Driver
+from modules.logger import Logger
+from modules.local_image import LocalImage
 from config import *
 import os
 import time

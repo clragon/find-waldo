@@ -5,7 +5,7 @@ import math
 from config import *
 # library for remote connection to the robot.
 import rpyc
-from .Logger import Logger
+from logger import Logger
 
 
 class Driver:

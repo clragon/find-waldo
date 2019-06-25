@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from PIL import Image
-from .Logger import *
-from .ImageSource import ImageSource
+from logger import *
+from image_source import ImageSource
 import urllib
 
 

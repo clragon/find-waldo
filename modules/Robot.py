@@ -2,8 +2,8 @@
 
 from config import *
 import math
-from .Logger import Logger
-from .Driver import *
+from logger import Logger
+from driver import *
 
 
 class Robot:
