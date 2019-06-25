@@ -20,7 +20,8 @@ This is an app to find Waldo on a sheet of paper with a mobile phone camera, a L
 
 ## Getting started
 ### Setup Network
-Connect the notebook to the internet. Check if WLAN hotspot is active. Start robot and connect to the hotspot, find the IP adress of the robot in the windows WLAN hotspot settings.
+Connect the notebook to the internet. Check if WLAN hotspot is active.  
+Start robot and connect to the hotspot, find the IP adress of the robot in the windows WLAN hotspot settings.
 
 ### Start Remote python call on the robot
 1. Open putty and connect via SSH to the IP of the robot:
@@ -29,7 +30,7 @@ Connect the notebook to the internet. Check if WLAN hotspot is active. Start rob
 2. Run ./rpyc_server.sh
 
 ### Setup Windows
-Download the repository and extract the zip file.
+Download the repository and extract the zip file.  
 Then open a command prompt inside the find-waldo folder (Shift+right-click -> open command prompt here). 
 
 #### Create an environment with Anaconda
@@ -59,7 +60,7 @@ cd ..
 ```
 
 ### Setup Linux
-Download the repository and extract the zip file.
+Download the repository and extract the zip file.  
 Then open a terminal inside the find-waldo folder.
 
 ### Install dependencies
@@ -106,7 +107,7 @@ cd ..
 ![class overview](docs/class_overview.png)
 
 ## Known issues
-**Python is complaining against Visual Studio Directory path**
+**Python is complaining against Visual Studio Directory path**  
 change environment variables
 ```
 VSINSTALLDIR=""
