@@ -107,7 +107,7 @@ cd ..
 ![class overview](docs/class_overview.png)
 
 ## Known issues
-- **Python is complaining against Visual Studio Directory path**  
+- **Python is complaining about Visual Studio Directory path**  
 
     change these environment variables:
     ```
