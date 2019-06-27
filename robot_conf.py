@@ -4,6 +4,9 @@ ROBOT_ADDRESS = ""
 # Camera IP address
 CAMERA_ADDRESS = ""
 
+# Camera port
+CAMERA_PORT = 8080
+
 # Distance between the two wheel in millimeter
 ROBOT_DISTANCE_WHEEL = 160
 

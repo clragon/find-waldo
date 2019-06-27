@@ -64,7 +64,7 @@ Download the repository and extract the zip file.
 Then open a terminal inside the find-waldo folder.
 
 ### Install dependencies
-Instal lthe necessary dependencies with
+Install the necessary dependencies with
 ```bash
 # install dependencies for CentOS/Fedora
 sudo yum install freetype-devel libpng-devel

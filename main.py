@@ -1,17 +1,9 @@
 from robot import *
+from image import *
 
-Vorwärts(10)
-Links(90)
-Vorwärts(10)
-Rückwärts(10)
-Rechts(90)
-Rückwärts(10)
-
-Strecke, Winkel = Hypotenuse(10, 10)
+Koordinaten = Finde_Person("docs/photo/marius.jpg", "docs/photo/tim-Gruppe_carlo.jpg")
+print(Koordinaten)
+Strecke, Winkel = Hypotenuse(Koordinaten)
 Links(Winkel)
 Vorwärts(Strecke)
-Rechts(180)
-Vorwärts(Strecke)
-Rechts(180)
-Rechts(Winkel)
 

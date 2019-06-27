@@ -1,5 +1,5 @@
 from modules.driver2 import Driver
-from config import ROBOT_ADDRESS
+from robot_conf import ROBOT_ADDRESS
 import math
 import os
 
@@ -46,6 +46,14 @@ def Nicht_zeigen():
 
 # Calculate hypotenuse
 def Hypotenuse(Länge, Höhe):
+    Strecke = math.sqrt(Länge**2 + Höhe**2)
+    Winkel = math.degrees(math.atan2(Höhe, Länge))
+    return Strecke, Winkel
+
+# Calculate hypotenuse with coordinates tuple
+def Hypotenuse(Koordinaten):
+    Länge = (Koordinaten[0] - Koordinaten[1]) / 2
+    Höhe = (Koordinaten[2] - Koordinaten[3]) / 2
     Strecke = math.sqrt(Länge**2 + Höhe**2)
     Winkel = math.degrees(math.atan2(Höhe, Länge))
     return Strecke, Winkel

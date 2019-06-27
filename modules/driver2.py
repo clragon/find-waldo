@@ -3,7 +3,7 @@ from turtle import *
 
 class Driver:
     
-    def __init__(address):
+    def __init__(self, address):
         print("")
 
     def drive(self, mm):
