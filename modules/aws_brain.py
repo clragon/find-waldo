@@ -35,7 +35,7 @@ def find_face(source, target):
 
     (width, height) = (Image.open(target).width, Image.open(target).height)
 
-    box = face["Left"] * width, face["Top"] * height, (face["Left"] * width) + (face["Width"] * width), (face["Top"] * height) + (face["Height"] * height)
+    box = round(face["Left"] * width), round(face["Top"] * height), round((face["Left"] * width) + (face["Width"] * width)), round((face["Top"] * height) + (face["Height"] * height))
 
     return box
 

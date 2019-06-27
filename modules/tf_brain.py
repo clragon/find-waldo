@@ -47,7 +47,7 @@ def find_waldo(image):
 
             (width, height) = (image.width, image.height)
 
-            box = (boxes[0][0][1] * width, boxes[0][0][0] * height, boxes[0][0][3] * width, boxes[0][0][2] * height)
+            box = round(boxes[0][0][1] * width), round(boxes[0][0][0] * height), round(boxes[0][0][3] * width), round(boxes[0][0][2] * height)
 
             return box
 
