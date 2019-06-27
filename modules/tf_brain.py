@@ -9,25 +9,21 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 class TFBrain:
-    model_path = ''
-    image = None
-    box = (0, 0, 0, 0)    # (xmin,ymin,xmax,ymax)
-    coords = (0, 0)       # Box's centre
 
-    def __init__(self, image=None, model_path=''):
-        # search for modelPath
-        dirname = os.path.dirname(__file__)
-        self.image = image
-        if model_path == "":
-            self.model_path = os.path.join(dirname, '../models/frozen_inference_graph.pb')
-        else:
-            self.model_path = model_path
+    @staticmethod
+    def _get_numpy_array(image):
+        (im_width, im_height) = (image.width, image.height)
+        image_np = np.array(image.getdata())
+        reshaped = image_np.reshape((im_height, im_width, 3))
+        result = reshaped.astype(np.uint8)
+        return result
 
-    def find_waldo(self):
+    @staticmethod
+    def find_waldo(image):
         detection_graph = tf.Graph()
         with detection_graph.as_default():
             od_graph_def = tf.GraphDef()
-            with tf.gfile.GFile(self.model_path, 'rb') as fid:
+            with tf.gfile.GFile(os.path.join(os.path.dirname(__file__), '../models/frozen_inference_graph.pb'), 'rb') as fid:
                 serialized_graph = fid.read()
                 od_graph_def.ParseFromString(serialized_graph)
                 tf.import_graph_def(od_graph_def, name='')
@@ -37,8 +33,8 @@ class TFBrain:
         category_index = label_map_util.create_category_index(categories)
 
         with detection_graph.as_default():
-            with tf.Session(graph=detection_graph) as sess:
-                image_np = self.image.get_numpy_array()
+            with tf.Session(graph = detection_graph) as sess:
+                image_np = _get_numpy_array(image)
                 image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
                 boxes = detection_graph.get_tensor_by_name('detection_boxes:0')
                 scores = detection_graph.get_tensor_by_name('detection_scores:0')
@@ -50,20 +46,9 @@ class TFBrain:
                     feed_dict={image_tensor: np.expand_dims(image_np, axis=0)})
 
                 if scores[0][0] < 0.1:
-                    return False
+                    raise Exception("No Matches")
 
-                (width, height)=(self.image.get_width(), self.image.get_height())
-                ymin = (boxes[0][0][0]*height)
-                xmin = (boxes[0][0][1]*width)
-                ymax = (boxes[0][0][2]*height)
-                xmax = (boxes[0][0][3]*width)
+                (width, height) = (image.width, image.height)
 
-                self.box = (xmin,ymin,xmax,ymax)
-                self.coords = (xmin+((xmax-xmin)/2), height-ymin+((ymax-ymin)/2))
-                return True
+                return boxes[0][0][1] * width, boxes[0][0][0] * height, boxes[0][0][3] * width, boxes[0][0][2] * height
 
-    def get_coords(self):
-        return self.coords
-
-    def get_box(self):
-        return self.box

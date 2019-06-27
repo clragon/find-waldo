@@ -10,12 +10,6 @@ class ImageSource:
     def show(self):
         self.image.show()
 
-    def get_width(self):
-        return self.image.width
-
-    def get_height(self):
-        return self.image.height
-
     def get_image(self):
         return self.image
 
@@ -26,13 +20,6 @@ class ImageSource:
         if self.scale_factor == 0:
             self.set_scale_factor()
         return self.scale_factor
-
-    def get_numpy_array(self):
-        (im_width, im_height) = self.image.size
-        image_np = np.array(self.image.getdata())
-        reshaped = image_np.reshape((im_height, im_width, 3))
-        result = reshaped.astype(np.uint8)
-        return result
 
     def mark(self, box):
         # img = Image.open("../docs/imgs/ti8m-group.jpg").convert("RGB")
@@ -50,9 +37,6 @@ class ImageSource:
 
     def save(self, path):
         self.image.save(path)
-
-    def get_binary(self):
-        return open(self.image.filename, 'rb').read()
 
     def get_path(self):
         return self.image.filename
