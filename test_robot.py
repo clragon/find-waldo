@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
 
-from robot import Robot
-import time
-import os
+from robot import *
 
+Vorwärts(10)
+Links(90)
+Vorwärts(10)
+Rückwärts(10)
+Rechts(90)
+Rückwärts(10)
 
-def test_robot():
-    robot = Robot()
-    robot.Vorwärts(200)
-    robot.Rechts(90)
-    robot.Zeigen()
-    time.sleep(1)
-    robot.Rechts(180)
-    robot.Links(90)
-    robot.Rückwärts(200)
+Strecke, Winkel = Hypotenuse(10, 10)
+Links(Winkel)
+Vorwärts(Strecke)
+Rechts(180)
+Vorwärts(Strecke)
+Rechts(180)
+Rechts(Winkel)
 
-
-if __name__ == '__main__':
-    os.makedirs("heads", exist_ok=True)
-    test_robot()

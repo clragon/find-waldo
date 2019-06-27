@@ -1,4 +1,3 @@
-# from modules.driver import Driver
 from modules.driver2 import Driver
 from config import ROBOT_ADDRESS
 import math
@@ -8,8 +7,7 @@ import os
 driver = None
 
 try:
-    # driver = Driver(ROBOT_ADDRESS)
-    driver = Driver()
+    driver = Driver(ROBOT_ADDRESS)
 except Exception as ex:
     print(ex)
     os.sys.exit()
