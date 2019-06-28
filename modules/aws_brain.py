@@ -21,6 +21,7 @@ def _get_matches(source_binary, target_binary):
             os.sys.exit()
 
     response = client.compare_faces(SourceImage={ 'Bytes': source_binary, }, TargetImage={ 'Bytes': target_binary, })
+    
     return response
 
 

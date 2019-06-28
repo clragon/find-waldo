@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 
 import os
-from config import *
-from modules.tf_brain import TFBrain as Brain
-from modules.aws_brain import AWSBrain
-from modules.driver import Driver
-from modules.camera import Camera
-from robot import Robotfrom PIL import Image
-from PIL import Image
+from image import *
+from robot import *
+from robot_conf import *
+from time import sleep
 
 
 def find_waldo():
@@ -28,22 +25,16 @@ def find_waldo():
 
 
 def find_face():
-    # source face
-    cam = Camera(CAMERA_ADDRESS)
-    cam.take_photo()
-    group_image = Image.open("docs/photo/ti8m-group.jpg")
-
-    aws_brain = AWSBrain(cam, group_image)
-    if aws_brain.find_face():
-        (x, y) = aws_brain.get_coords()
-        # move the robot here 748.0361535549164, 1389.703828215599
-        Image.open("docs/photo/ti8m-group.jpg").mark(aws_brain.get_box())
-        robot = Robot()
-        robot.move_to(x, group_image.get_height()-y)
-        robot.retreat()
-        robot.reset()
-    else:
-        os.sys.exit()
+    Koordinaten = Finde_Person("docs/photo/marius.jpg", "docs/photo/tim-Gruppe_carlo.jpg")
+    Strecke, Winkel = Hypotenuse(Koordinaten)
+    Links(Winkel)
+    Vorwärts(Strecke - ROBOT_ARM_SIZE)
+    Zeigen()
+    sleep(3)
+    Nicht_zeigen()
+    Links(180)
+    Vorwärts(Strecke - ROBOT_ARM_SIZE)
+    Rechts(180 + Winkel)
 
 
 def _distance(self, source, target):

@@ -21,7 +21,7 @@ This is an app to find Waldo on a sheet of paper with a mobile phone camera, a L
 ## Getting started
 ### Setup Network
 Connect the notebook to the internet. Check if WLAN hotspot is active.  
-Start robot and connect to the hotspot, find the IP adress of the robot in the windows WLAN hotspot settings.
+Start the robot and connect to the hotspot, find the IP address of the robot in the windows WLAN hotspot settings.
 
 ### Start Remote python call on the robot
 1. Open putty and connect via SSH to the IP of the robot:
