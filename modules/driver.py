@@ -1,4 +1,4 @@
-from config import *
+from modules.robot_conf import *
 import math
 import rpyc
 
@@ -70,6 +70,30 @@ class Driver:
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 
+    # drive one Motor for the given amount of degree Optionally, speed and ramping can ge passed as parameters.
+    def driveL(self, mm, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
+        '''Drive straight for the given amount of mm.
+
+        Parameters:
+            mm (int): The amount of milimeters to drive straight for.
+            ramp_up (int): amount of miliseconds until full speed.
+            ramp_dw (int): amount of miliseconds until full stop.'''
+        
+        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mL.wait_while('running')
+ 
+     # drive one Motor for the given amount of degree Optionally, speed and ramping can ge passed as parameters.
+    def driveR(self, grad, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
+        '''Drive straight for the given amount of mm.
+
+        Parameters:
+            mm (int): The amount of milimeters to drive straight for.
+            ramp_up (int): amount of miliseconds until full speed.
+            ramp_dw (int): amount of miliseconds until full stop.'''
+        
+        self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mR.wait_while('running')
+ 
     # turn the robot to the right by given degrees. Minus degrees can be given to turn to the left.
     def turn(self, degrees, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
         '''Turn to the right by the given degrees.

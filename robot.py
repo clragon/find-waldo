@@ -1,7 +1,11 @@
-from modules.driver2 import Driver
-from robot_conf import ROBOT_ADDRESS
+from modules.driver import Driver  
+# from modules.driver2 import Driver 
+
+
+from modules.robot_conf import ROBOT_ADDRESS
 import math
 import os
+
 
 
 driver = None
@@ -12,12 +16,25 @@ except Exception as ex:
     print(ex)
     os.sys.exit()
 
+# LinkerMotor
+def LinkerMotor(grad):
+    driver.driveL(grad)
+
+# RechterMotor
+def RechterMotor(grad):
+    driver.driveR(grad)
+
+# VorwärtsGrad
+def Vorwärts(grad):
+    driver.driveR(grad)
+    driver.driveL(grad)
+
 # Forward
-def Vorwärts(cm):
+def VorwärtsCm(cm):
     driver.drive(cm * 10)
 
 # Backwards
-def Rückwärts(cm):
+def RückwärtsCm(cm):
     driver.drive(-(cm * 10))
 
 # Turn right
