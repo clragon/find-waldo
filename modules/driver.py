@@ -1,4 +1,4 @@
-from config import *
+from modules.config import *
 import math
 import rpyc
 

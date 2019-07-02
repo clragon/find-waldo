@@ -1,5 +1,5 @@
 from modules.driver2 import Driver
-from robot_conf import ROBOT_ADDRESS
+from modules.robot_conf import ROBOT_ADDRESS
 import math
 import os
 
