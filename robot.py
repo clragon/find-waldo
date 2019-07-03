@@ -1,7 +1,6 @@
 from modules.driver import Driver  
 # from modules.driver2 import Driver 
 
-
 from modules.robot_conf import ROBOT_ADDRESS
 import math
 import os
@@ -25,7 +24,7 @@ def RechterMotor(grad):
     driver.driveR(grad)
 
 # VorwärtsGrad
-def Vorwärts(grad):
+def BeideMotoren(grad):
     driver.driveR(grad)
     driver.driveL(grad)
 
