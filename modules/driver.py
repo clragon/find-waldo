@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 from modules.robot_conf import *
-=======
 from modules.config import *
->>>>>>> a0a480d1370145ae6347cdbe3ea8e151f45396e0
 import math
 import rpyc
 
