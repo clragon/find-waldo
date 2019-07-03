@@ -3,7 +3,7 @@ from image import *
 
 
 Foto()
-Zeige_Foto("docs/photo/webcam.jpg")
+Zeige_Foto("Fotos/webcam.jpg")
 
 
 Pixel = Finde_Person("docs/photo/marius.jpg", "docs/photo/tim-Gruppe_carlo.jpg")

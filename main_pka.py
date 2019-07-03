@@ -11,7 +11,7 @@ print("5 -------------")
 
 Foto()
 print("6 -------------")
-Zeige_Foto("docs/photo/webcam.jpg")
+Zeige_Foto("Fotos/webcam.jpg")
 
 '''
 
