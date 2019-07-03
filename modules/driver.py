@@ -1,5 +1,4 @@
 from modules.robot_conf import *
-from modules.config import *
 import math
 import rpyc
 

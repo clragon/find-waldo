@@ -1,5 +1,5 @@
 # Robot IP address
-ROBOT_ADDRESS = "169.254.234.136"
+ROBOT_ADDRESS = "169.254.197.199"
 
 # Camera IP address
 CAMERA_ADDRESS = "10.10.2.141"
