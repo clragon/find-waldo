@@ -3,7 +3,7 @@ import boto3
 import os
 
 try:
-    from aws_conf import *
+    from modules.aws_conf import *
 except:
     raise Exception("No AWS credentials")
     os.sys.exit()

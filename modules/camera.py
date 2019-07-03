@@ -3,7 +3,7 @@ import os
 
 
 def take_photo(address, port=8080):
-    file = "../docs/photo/webcam.jpg"
+    file = "docs/photo/webcam.jpg"
 
     try:
         urllib.request.urlretrieve("http://{}:{}/photoaf.jpg".format(str(address), str(port)), filename=file)

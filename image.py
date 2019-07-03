@@ -3,7 +3,7 @@ from modules.tf_brain import find_waldo
 from modules.camera import take_photo
 from PIL import Image, ImageDraw
 
-from robot_conf import *
+from modules.robot_conf import *
 
 def Foto():
     return take_photo(CAMERA_ADDRESS, CAMERA_PORT)

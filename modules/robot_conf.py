@@ -2,7 +2,7 @@
 ROBOT_ADDRESS = "169.254.234.136"
 
 # Camera IP address
-CAMERA_ADDRESS = ""
+CAMERA_ADDRESS = "10.10.2.141"
 
 # Camera port
 CAMERA_PORT = 8080
