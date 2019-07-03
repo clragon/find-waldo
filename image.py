@@ -25,14 +25,14 @@ def Markieren(Pixel, Gruppen_Foto):
     img = Image.open(Gruppen_Foto).convert("RGB")
     ImageDraw.Draw(img).rectangle(Pixel, outline="red", width=2)
     img.save(file, "JPEG")
-    copyfile(file, "Fotos/webcam_{:%Y.%m.%d_%H-%M-%S}.jpg".format(__name__, datetime.now()))
+    copyfile(file, "Fotos/markiert_{:%Y.%m.%d_%H-%M-%S}.jpg".format(__name__, datetime.now()))
     return file
 
 def Ausschneiden(Pixel, Gruppen_Foto):
     file = "Fotos/ausgeschnitten.jpg"
     img = Image.open(Gruppen_Foto).convert("RGB").crop(Pixel)
     img.save(file, "JPEG")
-    copyfile(file, "Fotos/webcam_{:%Y.%m.%d_%H-%M-%S}.jpg".format(__name__, datetime.now()))
+    copyfile(file, "Fotos/ausgeschnitten_{:%Y.%m.%d_%H-%M-%S}.jpg".format(__name__, datetime.now()))
     return file
 
 def Zeige_Foto(Foto):
