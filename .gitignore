@@ -108,6 +108,6 @@ venv.bak/
 .vscode/settings.json
 find-waldo.iml
 
-heads/**
+Fotos
 aws_conf.py
 docs/photo/*.jpg
