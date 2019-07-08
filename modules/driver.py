@@ -117,9 +117,9 @@ class Driver:
             self.ev3.Sound.beep()
 
     def point(self):
-        self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
+        self.mP.run_to_abs_pos(position_sp=90, speed_sp=self.base_speed/2)
         self.mP.wait_while('running')
 
     def unpoint(self):
-        self.mP.run_to_rel_pos(position_sp=-50, speed_sp=self.base_speed/2)
+        self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
         self.mP.wait_while('running')
