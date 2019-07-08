@@ -25,9 +25,9 @@ def Finde_Waldo(Bild):
 def Markieren(Pixel, Gruppen_Foto):
     default = "Fotos/markiert.jpg"
     img = Image.open(Gruppen_Foto).convert("RGB")
-    ImageDraw.Draw(img).rectangle(Pixel, outline="red", width=2)
-    img.save(default, "JPEG")
+    ImageDraw.Draw(img).rectangle(Pixel, outline="red", width=3)
     file = "Fotos/markiert_{}.jpg".format(datetime.now().strftime("%Y.%m.%d_%H-%M-%S"))
+    img.save(default, "JPEG")
     copyfile(default, file)
     return file
 

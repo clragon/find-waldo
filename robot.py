@@ -29,11 +29,11 @@ def BeideMotoren(grad):
     driver.driveL(grad)
 
 # Forward
-def VorwärtsCm(cm):
+def Vorwärts(cm):
     driver.drive(cm * 10)
 
 # Backwards
-def RückwärtsCm(cm):
+def Rückwärts(cm):
     driver.drive(-(cm * 10))
 
 # Turn right
@@ -50,7 +50,7 @@ def Sprich(Text):
 
 # Beep
 def Beep():
-    driver.Beep()
+    driver.beep()
 
 # Point
 def Zeigen():
@@ -68,4 +68,5 @@ def Hypotenuse(Länge, Höhe):
 
 # Calculate hypotenuse with coordinates tuple
 def Hypotenuse2(Koordinaten):
-    return Hypotenuse((Koordinaten[0] - Koordinaten[1]) / 2, (Koordinaten[2] - Koordinaten[3]) / 2)
+    print(Koordinaten[0] + ((Koordinaten[2] - Koordinaten[0]) / 2), Koordinaten[1] + ((Koordinaten[3] - Koordinaten[1]) / 2))
+    return Hypotenuse(Koordinaten[0] + ((Koordinaten[2] - Koordinaten[0]) / 2), Koordinaten[1] + ((Koordinaten[3] - Koordinaten[1]) / 2))
