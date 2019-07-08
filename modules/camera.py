@@ -3,11 +3,16 @@ import os
 
 
 def take_photo(file, address, port=8080):
-
+    request = None
     try:
-        urllib.request.urlretrieve("http://{}:{}/photoaf.jpg".format(str(address), str(port)), filename=file)
+        request = urllib.request.urlopen("http://{}:{}/photoaf.jpg".format(str(address), str(port)), timeout=10000)
     except:
         raise Exception("Camera not reachable")
-        os.sys.exit()
+        os.sys.exit()  
+    with open(file, 'wb') as f:
+        try:
+            f.write(request.read())
+        except:
+            print("error")
 
     return file

@@ -12,7 +12,7 @@ os.makedirs("Fotos", exist_ok=True)
 
 def Foto():
     default = take_photo(("Fotos/webcam.jpg"), CAMERA_ADDRESS, CAMERA_PORT)
-    file = "Fotos/webcam_{:%Y.%m.%d_%H-%M-%S}.jpg".format(__name__, datetime.now())
+    file = "Fotos/webcam_{}.jpg".format(__name__, datetime.now().strftime("%Y.%m.%d_%H-%M-%S"))
     copyfile(default, file)
     return file
 
@@ -27,7 +27,7 @@ def Markieren(Pixel, Gruppen_Foto):
     img = Image.open(Gruppen_Foto).convert("RGB")
     ImageDraw.Draw(img).rectangle(Pixel, outline="red", width=2)
     img.save(default, "JPEG")
-    file = "Fotos/markiert_{:%Y.%m.%d_%H-%M-%S}.jpg".format(__name__, datetime.now())
+    file = "Fotos/markiert_{}.jpg".format(__name__, datetime.now().strftime("%Y.%m.%d_%H-%M-%S"))
     copyfile(default, file)
     return file
 
@@ -35,7 +35,7 @@ def Ausschneiden(Pixel, Gruppen_Foto):
     default = "Fotos/ausgeschnitten.jpg"
     img = Image.open(Gruppen_Foto).convert("RGB").crop(Pixel)
     img.save(file, "JPEG")
-    file = "Fotos/ausgeschnitten_{:%Y.%m.%d_%H-%M-%S}.jpg".format(__name__, datetime.now())
+    file = "Fotos/ausgeschnitten_{}.jpg".format(__name__, datetime.now().strftime("%Y.%m.%d_%H-%M-%S"))
     copyfile(default, file)
     return file
 
