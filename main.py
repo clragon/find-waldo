@@ -2,12 +2,8 @@ from robot import *
 from image import *
 
 
-Foto()
-Zeige_Foto("Fotos/webcam.jpg")
-
-
-Pixel = Finde_Person("docs/photo/marius.jpg", "docs/photo/tim-Gruppe_carlo.jpg")
-Koordinaten = Konvertieren(Pixel, Vergrössern("docs/photo/tim-Gruppe_carlo.jpg", 1000))
+Pixel = Finde_Person("docs/Fotos/Person.jpg", "docs/Fotos/Gruppe.jpg")
+Koordinaten = Konvertieren(Pixel, Vergrössern("docs/Fotos/Gruppe.jpg", 1000))
 
 Strecke, Winkel = Hypotenuse2(Koordinaten)
 Links(Winkel)
