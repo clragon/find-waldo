@@ -10,7 +10,7 @@ from shutil import copyfile
 os.makedirs("Fotos", exist_ok=True)
 
 def Foto():
-    default = take_photo("Fotos/webcam.jpg"), CAMERA_ADDRESS, CAMERA_PORT)
+    default = take_photo(("Fotos/webcam.jpg"), CAMERA_ADDRESS, CAMERA_PORT)
     file = "Fotos/webcam_{:%Y.%m.%d_%H-%M-%S}.jpg".format(__name__, datetime.now())
     copyfile(default, file)
     return file

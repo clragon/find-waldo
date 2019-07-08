@@ -1,8 +1,8 @@
 # Robot IP address
-ROBOT_ADDRESS = "169.254.197.199"
+ROBOT_ADDRESS = ""
 
 # Camera IP address
-CAMERA_ADDRESS = "10.10.2.141"
+CAMERA_ADDRESS = ""
 
 # Camera port
 CAMERA_PORT = 8080
