@@ -4,10 +4,12 @@ from image import *
 print("Bereiten sie die Webcam vor.")
 print("Als Gruppe vor die Kamera stehen, dann enter drücken")
 input()
-Gruppe = Foto()
+# Gruppe = Foto()
+Gruppe = "docs/pics/Gruppe.jpg"
 print("Einzelne Person vor Kamera stellen, enter drücken")
 input()
-Person = Foto()
+# Person = Foto()
+Person = "docs/pics/Person.jpg"
 print("Das Gruppenfoto ausdrucken (Datei hier: {}) und die Breite in cm eingeben".format(Gruppe))
 Breite = int(input())
 print("Roboter bereitstellen, dann enter drücken")
