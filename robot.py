@@ -57,7 +57,7 @@ def Zeigen():
     driver.point()
 
 # Unpoint
-def Nicht_zeigen():
+def Nicht_Zeigen():
     driver.unpoint()
 
 # Calculate hypotenuse
