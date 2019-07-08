@@ -33,9 +33,9 @@ def Markieren(Pixel, Gruppen_Foto):
 
 def Ausschneiden(Pixel, Gruppen_Foto):
     default = "Fotos/ausgeschnitten.jpg"
-    img = Image.open(Gruppen_Foto).convert("RGB").crop(Pixel)
-    img.save(file, "JPEG")
     file = "Fotos/ausgeschnitten_{}.jpg".format(datetime.now().strftime("%Y.%m.%d_%H-%M-%S"))
+    img = Image.open(Gruppen_Foto).convert("RGB").crop(Pixel)
+    img.save(default, "JPEG")
     copyfile(default, file)
     return file
 
