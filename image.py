@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw
 from modules.robot_conf import *
 from datetime import datetime
 from shutil import copyfile
+import os
 
 
 os.makedirs("Fotos", exist_ok=True)
