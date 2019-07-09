@@ -68,5 +68,4 @@ def Hypotenuse(Länge, Höhe):
 
 # Calculate hypotenuse with coordinates tuple
 def Hypotenuse2(Koordinaten):
-    print(Koordinaten[0] + ((Koordinaten[2] - Koordinaten[0]) / 2), Koordinaten[1] + ((Koordinaten[3] - Koordinaten[1]) / 2))
     return Hypotenuse(Koordinaten[0] + ((Koordinaten[2] - Koordinaten[0]) / 2), Koordinaten[1] + ((Koordinaten[3] - Koordinaten[1]) / 2))

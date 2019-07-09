@@ -1,4 +1,6 @@
 from modules.robot_conf import *
+import threading
+import time
 import math
 import rpyc
 import os
@@ -36,6 +38,16 @@ class Driver:
         except:
             raise Exception("Motors couldn't be reached")
             os.sys.exit()
+        
+        self.btn_event = self.btn_default
+
+        try:
+            self.btn = self.ev3.TouchSensor()
+        except:
+            print("no button found")
+
+
+        threading.Thread(target = self.check_btn).start()
 
         self.base_speed = base_speed
         self.base_ramp_up = base_ramp_up
@@ -109,3 +121,14 @@ class Driver:
     def unpoint(self):
         self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
         self.mP.wait_while('running')
+
+    def check_btn(self):
+        global btn_event
+        while True:
+            if self.btn.is_pressed:
+                self.btn_event()
+
+    def btn_default(self):
+        time.sleep(1)
+        if ENABLE_SOUND:
+            self.beep()
