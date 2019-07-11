@@ -18,7 +18,7 @@ class Driver:
                  base_ramp_up=MOTOR_BASE_RAMP_UP,
                  base_ramp_dw=MOTOR_BASE_RAMP_DOWN,
                  wheel_radius=WHEEL_RADIUS,
-                 diameter=ROBOT_DISTANCE_WHEEL,
+                 diameter=WHEEL_DISTANCE,
                  pointer=ROBOT_ARM_SIZE):
 
         try:
@@ -38,16 +38,14 @@ class Driver:
         except:
             raise Exception("Motors couldn't be reached")
             os.sys.exit()
-        
-        self.btn_event = self.btn_default
 
         try:
             self.btn = self.ev3.TouchSensor()
         except:
             print("no button found")
 
-
-        threading.Thread(target = self.check_btn).start()
+        self.btn_event = self.btn_default
+        threading.Thread(target = self.btn_check).start()
 
         self.base_speed = base_speed
         self.base_ramp_up = base_ramp_up
@@ -122,13 +120,12 @@ class Driver:
         self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
         self.mP.wait_while('running')
 
-    def check_btn(self):
+    def btn_check(self):
         global btn_event
         while True:
+            time.sleep(0.5)
             if self.btn.is_pressed:
                 self.btn_event()
 
     def btn_default(self):
-        time.sleep(1)
-        if ENABLE_SOUND:
-            self.beep()
+        self.beep()

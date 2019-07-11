@@ -45,7 +45,7 @@ def Links(Grad):
     driver.turn(-Grad)
 
 # Speak
-def Sprich(Text):
+def Sprechen(Text):
     driver.speak(Text)
 
 # Beep

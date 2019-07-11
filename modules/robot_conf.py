@@ -1,31 +1,27 @@
-# Robot IP address
+# Roboter IP addresse
 ROBOT_ADDRESS = ""
 
-# Camera IP address
+# Webcam IP addresse
 CAMERA_ADDRESS = ""
 
-# Camera port
+# Webcam port
 CAMERA_PORT = 8080
 
-# Distance between the two wheel in millimeter
-ROBOT_DISTANCE_WHEEL = 160
-
-# Arm size in millimeter
-ROBOT_ARM_SIZE = 135
-
-# wheels configuration
+# Radius eines Rades
 WHEEL_RADIUS = 15
 
-# motors configuration
+# Entfernung zwischen den zwei Rädern
+WHEEL_DISTANCE = 160
+
+# Grösse des Zeigers vom Mittelpunkt aus
+ROBOT_ARM_SIZE = 135
+
+# Roboter Geschwindigkeit
 MOTOR_BASE_SPEED = 200
 
-# default motor ramping up/down value (ms).
-MOTOR_BASE_RAMP_UP = 2700
+# Roboter be- und entschleunigung
+MOTOR_BASE_RAMP_UP   = 2700
 MOTOR_BASE_RAMP_DOWN = 2000
 
-# True or False
+# Roboter Ton aktiviert
 ENABLE_SOUND = False
-
-# Picture in millimeters
-PICTURE_WIDTH = 787
-PICTURE_HEIGHT = 535
