@@ -3,6 +3,7 @@ from modules.aws_brain import find_face
 from modules.camera import take_photo
 from PIL import Image, ImageDraw
 from modules.robot_conf import *
+import tkinter, tkinter.filedialog
 from datetime import datetime
 from shutil import copyfile
 import os
@@ -38,6 +39,10 @@ def Ausschneiden(Pixel, Gruppen_Foto):
     img.save(default, "JPEG")
     copyfile(default, file)
     return file
+
+def Wähle_Foto():
+    root = tkinter.Tk().withdraw()
+    return tkinter.filedialog.askopenfilename(initialdir = "./Fotos/", title = "Bild auswählen", filetypes = (("jpeg files", "*.jpg"),("all files", "*.*")))
 
 def Zeige_Foto(Foto):
     Image.open(Foto).show()
