@@ -16,17 +16,17 @@ except Exception as ex:
     os.sys.exit()
 
 # LinkerMotor
-def LinkerMotor(grad):
-    driver.driveL(grad)
+def LinkerMotor(Grad):
+    driver.driveL(Grad)
 
 # RechterMotor
-def RechterMotor(grad):
-    driver.driveR(grad)
+def RechterMotor(Grad):
+    driver.driveR(Grad)
 
 # VorwärtsGrad
-def BeideMotoren(grad):
-    driver.driveR(grad)
-    driver.driveL(grad)
+def BeideMotoren(Grad):
+    driver.driveR(Grad)
+    driver.driveL(Grad)
 
 # Forward
 def Vorwärts(cm):

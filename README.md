@@ -66,7 +66,7 @@ soon :TM:
 - [ev3dev motors](https://ev3dev-lang.readthedocs.io/projects/python-ev3dev/en/stable/motors.html)
 
 ### UML class diagram
-![class overview](docs/class_overview.png)
+![class overview](docs/uml.png)
 
 ## Known issues
 - **Python is complaining about Visual Studio Directory path**  
