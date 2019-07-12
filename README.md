@@ -49,7 +49,7 @@ The dependencies you need are the following ones:
 ```cmd
 pip install rpyc==3.3.0 pillow boto3
 ```
-If you want to use the neural network as well, you will need extra dependencies:
+If you want to use the neural network as well, you will need additional dependencies:
 ```cmd
 pip install matplotlib keras requests
 ```
