@@ -1,7 +1,7 @@
 # Find Waldo
 ## Overview
-This app is the core of project Waldo for Hackanapp for Managers.  
-It contains code for controlling the robots, communicating with the Amazon Web Services AI, the AI to find waldo inside a given picture and handling a smartphone as a webcam.
+This app is the core of Project Waldo for Hackanapp for Managers.  
+It contains code for controlling the robots, communicating with the Amazon Web Services AI, the AI to find Waldo inside a given picture and handling a smartphone as a webcam.
 
 ## Prerequisites
 To use this repository, you will need the following:
