@@ -42,7 +42,7 @@ The script is built around robots that use two large motors (Out B and C) with w
 
 
 ## Python
-To use the provided scripts, you have to install it's dependencies.  
+To use the provided scripts, you have to install its dependencies.  
 Currently, only the face rekognition part of the script is in use, 
 since the neural network for finding waldo isn't very fast or stable.  
 The dependencies you need are the following ones:
