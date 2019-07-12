@@ -58,7 +58,9 @@ and you will have to uncomment lines 2, 22 and 23 in [image.py](/image.py).
 
 ## Usage
 
-soon :TM:
+The German documentation can be found here:  
+- [Robotersteuerung](/docs/Robotersteuerung.docx)  
+- [Kamerasteuerung](/docs/Kamerasteuerung.docx)
 
 
 ## Sources
