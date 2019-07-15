@@ -69,3 +69,7 @@ def Hypotenuse(Länge, Höhe):
 # Calculate hypotenuse with coordinates tuple
 def Hypotenuse2(Koordinaten):
     return Hypotenuse(Koordinaten[0] + ((Koordinaten[2] - Koordinaten[0]) / 2), Koordinaten[1] + ((Koordinaten[3] - Koordinaten[1]) / 2))
+
+def Knopfdruck(Funktion, *Parameter):
+    driver.btn_event = Funktion
+    driver.btn_args = Parameter

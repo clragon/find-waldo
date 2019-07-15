@@ -45,6 +45,7 @@ class Driver:
             print("no button found")
 
         self.btn_event = self.btn_default
+        self.btn_args = None
         threading.Thread(target = self.btn_check).start()
 
         self.base_speed = base_speed
@@ -122,10 +123,14 @@ class Driver:
 
     def btn_check(self):
         global btn_event
+        global btn_args
         while True:
             time.sleep(0.5)
             if self.btn.is_pressed:
-                self.btn_event()
+                if btn_args not None:
+                    self.btn_event(*btn_args)
+                else:
+                    self.btn_event()
 
     def btn_default(self):
         self.beep()
