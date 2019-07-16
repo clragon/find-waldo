@@ -121,9 +121,12 @@ class Driver:
         self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
         self.mP.wait_while('running')
 
+    def btn_set(self, function, *args = None):
+        self.btn_event = function
+        self.btn_args = args
+
     def btn_check(self):
         while True:
-            # time.sleep(0.5)
             if self.btn.is_pressed:
                 if (self.btn_args is not None):
                     self.btn_event(*self.btn_args)
@@ -133,6 +136,3 @@ class Driver:
     def btn_default(self):
         self.beep()
 
-    def btn_set(self, function, *args):
-        self.btn_event = function
-        self.btn_args = args
