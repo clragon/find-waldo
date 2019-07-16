@@ -121,7 +121,7 @@ class Driver:
         self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
         self.mP.wait_while('running')
 
-    def btn_set(self, function, *args = None):
+    def btn_set(self, function, *args):
         self.btn_event = function
         self.btn_args = args
 
