@@ -16,17 +16,17 @@ except Exception as ex:
     os.sys.exit()
 
 # LinkerMotor
-def LinkerMotor(grad):
-    driver.driveL(grad)
+def Linker_Motor(Grad):
+    driver.driveL(Grad)
 
 # RechterMotor
-def RechterMotor(grad):
-    driver.driveR(grad)
+def Rechter_Motor(Grad):
+    driver.driveR(Grad)
 
 # VorwärtsGrad
-def BeideMotoren(grad):
-    driver.driveR(grad)
-    driver.driveL(grad)
+def Beide_Motoren(Grad):
+    driver.driveR(Grad)
+    driver.driveL(Grad)
 
 # Forward
 def Vorwärts(cm):
@@ -45,7 +45,7 @@ def Links(Grad):
     driver.turn(-Grad)
 
 # Speak
-def Sprich(Text):
+def Sprechen(Text):
     driver.speak(Text)
 
 # Beep
@@ -69,3 +69,7 @@ def Hypotenuse(Länge, Höhe):
 # Calculate hypotenuse with coordinates tuple
 def Hypotenuse2(Koordinaten):
     return Hypotenuse(Koordinaten[0] + ((Koordinaten[2] - Koordinaten[0]) / 2), Koordinaten[1] + ((Koordinaten[3] - Koordinaten[1]) / 2))
+
+def Knopfdruck(Funktion, *Parameter):
+    driver.btn_event = Funktion
+    driver.btn_args = Parameter
