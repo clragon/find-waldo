@@ -122,15 +122,17 @@ class Driver:
         self.mP.wait_while('running')
 
     def btn_check(self):
-        global btn_event
-        global btn_args
         while True:
-            time.sleep(0.5)
+            # time.sleep(0.5)
             if self.btn.is_pressed:
-                if btn_args not None:
-                    self.btn_event(*btn_args)
+                if (self.btn_args is not None):
+                    self.btn_event(*self.btn_args)
                 else:
                     self.btn_event()
 
     def btn_default(self):
         self.beep()
+
+    def btn_set(self, function, *args):
+        self.btn_event = function
+        self.btn_args = args
