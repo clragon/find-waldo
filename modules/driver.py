@@ -28,7 +28,6 @@ class Driver:
             self.ev3 = self.remote_ip.modules['ev3dev.ev3']
         except:
             raise Exception("Robot couldnt be reached at {}".format(address))
-            os.sys.exit()
 
         try:
             # create motor control objects with the remote EV3 dev module.
@@ -37,7 +36,6 @@ class Driver:
             self.mR = self.ev3.LargeMotor('outC'); self.mR.stop_action = 'hold'
         except:
             raise Exception("Motors couldn't be reached")
-            os.sys.exit()
 
         try:
             self.btn = self.ev3.TouchSensor()

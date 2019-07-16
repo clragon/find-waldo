@@ -6,7 +6,6 @@ try:
     from modules.aws_conf import *
 except:
     raise Exception("No AWS credentials")
-    os.sys.exit()
 
 def _get_matches(source_binary, target_binary):
     client = None
@@ -18,7 +17,6 @@ def _get_matches(source_binary, target_binary):
             client = boto3.client('rekognition', region_name=AWS_REGION, aws_access_key_id=AWS_KEY_ID, aws_secret_access_key=AWS_SECRET)
         except:
             raise Exception("AWS couldnt be reached")
-            os.sys.exit()
 
     response = client.compare_faces(SourceImage={ 'Bytes': source_binary, }, TargetImage={ 'Bytes': target_binary, })
     
@@ -32,7 +30,6 @@ def find_face(source, target):
         face = response["FaceMatches"][0]["Face"]["BoundingBox"]
     except:
         raise Exception("No matches")
-        os.sys.exit()
 
     (width, height) = (Image.open(target).width, Image.open(target).height)
 

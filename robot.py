@@ -13,7 +13,6 @@ try:
     driver = Driver(ROBOT_ADDRESS)
 except Exception as ex:
     print(ex)
-    os.sys.exit()
 
 # LinkerMotor
 def Linker_Motor(Grad):
