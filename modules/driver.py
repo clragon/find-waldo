@@ -27,7 +27,7 @@ class Driver:
             # instantiate the EV3 dev module on the robot.
             self.ev3 = self.remote_ip.modules['ev3dev.ev3']
         except:
-            raise Exception("Robot couldnt be reached at {}".format(address))
+            raise Exception("Robot couldnt be reached at {}".format(address or "<no address>"))
 
         try:
             # create motor control objects with the remote EV3 dev module.
