@@ -1,15 +1,23 @@
 from robot import *
 from image import *
 
+import os
+
 print("Bereiten sie die Webcam vor.")
-print("Als Gruppe vor die Kamera stehen, dann enter drücken")
-input()
-Gruppe = Foto()
-print("Einzelne Person vor Kamera stellen, enter drücken")
-input()
-Person = Foto()
+print("Als Gruppe vor die Kamera stehen oder Bildpfad eingeben, dann enter drücken")
+inp = input()
+if (os.path.exists(inp):
+    Gruppe = inp
+else:
+    Gruppe = Foto()
+print("Einzelne Person vor Kamera stellen oder Bildpfad eingeben, enter drücken")
+inp = input()
+if (os.path.exists(inp):
+    Person = inp
+else:
+    Person = Foto()
 print("Das Gruppenfoto ausdrucken (Datei hier: {}) und die Breite in cm eingeben".format(Gruppe))
-Breite = int(input())
+Breite = float(input())
 print("Roboter bereitstellen, dann enter drücken")
 input()
 print("Finde Person...")
@@ -23,8 +31,8 @@ print("Fahre Roboter")
 Rechts(Winkel)
 Vorwärts(Strecke - ROBOT_ARM_SIZE/10)
 Zeigen()
-prnt("Ziel erreicht")
-Sprich("Person gefunden")
+print("Ziel erreicht")
+Sprechen("Target reached")
 print("enter drücken um den Roboter zurückkehren zu lassen")
 input()
 Nicht_Zeigen()

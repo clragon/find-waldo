@@ -27,8 +27,7 @@ class Driver:
             # instantiate the EV3 dev module on the robot.
             self.ev3 = self.remote_ip.modules['ev3dev.ev3']
         except:
-            raise Exception("Robot couldnt be reached at {}".format(address))
-            os.sys.exit()
+            raise Exception("Robot couldnt be reached at {}".format(address or "<no address>"))
 
         try:
             # create motor control objects with the remote EV3 dev module.
@@ -37,7 +36,6 @@ class Driver:
             self.mR = self.ev3.LargeMotor('outC'); self.mR.stop_action = 'hold'
         except:
             raise Exception("Motors couldn't be reached")
-            os.sys.exit()
 
         try:
             self.btn = self.ev3.TouchSensor()
@@ -121,16 +119,18 @@ class Driver:
         self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
         self.mP.wait_while('running')
 
+    def btn_set(self, function, *args):
+        self.btn_event = function
+        self.btn_args = args
+
     def btn_check(self):
-        global btn_event
-        global btn_args
         while True:
-            time.sleep(0.5)
             if self.btn.is_pressed:
-                if btn_args not None:
-                    self.btn_event(*btn_args)
+                if (self.btn_args is not None):
+                    self.btn_event(*self.btn_args)
                 else:
                     self.btn_event()
 
     def btn_default(self):
         self.beep()
+
