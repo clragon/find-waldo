@@ -41,7 +41,7 @@ to run the server in the background.
 You may as well create a systemd service that automatically runs the script on boot of the robot.
 
 
-## Physical appearence
+## Physical appearance
 
 The script is built around robots that use two large motors (Out B and C) with wheels and one medium motor (Out D) for a pointer as well as a touch sensor (Out 1). To fully use it, you should now build your robot accordingly.
 
@@ -114,9 +114,9 @@ The German documentation can be found here:
 
 ## Troubleshooting
 The script fails with:
-- "No AWS credentials" : see the [AWS scetion](#amazon-web-services)
+- "No AWS credentials" : see the [AWS section](#amazon-web-services)
 - "Robot couldn't be reached" : make sure you have set the correct IP in the configuration file and that you are in the same network as the robot you are trying to reach.
-- "Motors couldn't be reached" : make sure all your motors are connected to the correct outputs, as given in [appearence](#physical-appearence).
+- "Motors couldn't be reached" : make sure all your motors are connected to the correct outputs, as given in [appearance](#physical-appearance).
 - "Camera couldn't be reached" : make sure you have set the correct IP in the configuration file and that you are in the same network as your camera.
 - "No matches" : the person you were trying to find wasn't in the group image.
 
