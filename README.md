@@ -1,7 +1,7 @@
 # Find Waldo
 ## Overview
 This app is the core of Project Waldo for Hackanapp for Managers.  
-It contains code for controlling a mindstorm robot, communicating with the Amazon Web Services AI, an AI to find Waldo inside a given picture and handling a smartphone as a webcam.
+It contains code for controlling a mindstorm robot, communicating with the Amazon Web Services AI and handling a smartphone as a webcam.
 
 ## Prerequisites
 To use this repository, you will need the following:
