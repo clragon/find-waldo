@@ -54,11 +54,6 @@ The dependencies you need are the following ones:
 ```cmd
 pip install rpyc==3.3.0 pillow boto3
 ```
-If you want to use the neural network as well, you will need additional dependencies:
-```cmd
-pip install matplotlib keras requests
-```
-and you will have to uncomment lines 2, 22 and 23 in [image.py](/image.py).
 
 ## Configuration
 The modules use configuration files so static values do no have to be typed in over and over.  
