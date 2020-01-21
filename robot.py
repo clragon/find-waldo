@@ -1,28 +1,28 @@
-from modules.driver import Driver  
-# from modules.driver2 import Driver 
+if (True):
+    from modules.driver_storm import Driver
+else:
+    from modules.driver_turtle import Driver
 
-from modules.robot_conf import ROBOT_ADDRESS
 import math
 import os
-
 
 
 driver = None
 
 try:
-    driver = Driver(ROBOT_ADDRESS)
+    driver = Driver()
 except Exception as ex:
     print(ex)
 
-# LinkerMotor
+# Left Motor
 def Linker_Motor(Grad):
     driver.driveL(Grad)
 
-# RechterMotor
+# Right Motor
 def Rechter_Motor(Grad):
     driver.driveR(Grad)
 
-# VorwärtsGrad
+# Forward
 def Beide_Motoren(Grad):
     driver.driveR(Grad)
     driver.driveL(Grad)
@@ -69,5 +69,6 @@ def Hypotenuse(Länge, Höhe):
 def Hypotenuse2(Koordinaten):
     return Hypotenuse(Koordinaten[0] + ((Koordinaten[2] - Koordinaten[0]) / 2), Koordinaten[1] + ((Koordinaten[3] - Koordinaten[1]) / 2))
 
+# Define button press action
 def Knopfdruck(Funktion, *Parameter):
     driver.btn_set(Funktion, *Parameter)

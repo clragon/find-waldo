@@ -6,7 +6,7 @@ It contains code for controlling a mindstorm robot, communicating with the Amazo
 ## Prerequisites
 To use this repository, you will need the following:
 - Lego Mindstorm EV3
-- [ev3dev-stretch](https://github.com/ev3dev/ev3dev/releases/download/ev3dev-stretch-2019-03-03/ev3dev-stretch-ev3-generic-2019-03-03.zip)
+- [ev3dev-stretch](https://github.com/ev3dev/ev3dev/releases/latest/)
 - [Python 3.5.3](https://www.python.org/downloads/release/python-353/)
 - A webcam or an Android smartphone
 - Amazon Web Services [Rekognition](https://aws.amazon.com/de/rekognition/)
@@ -47,9 +47,7 @@ The script is built around robots that use two large motors (Out B and C) with w
 
 
 ## Python
-To use the provided scripts, you have to install its dependencies.  
-Currently, only the face recognition part of the script is in use, 
-since the neural network for finding Waldo isn't very fast or stable.  
+To use the provided scripts, you have to install its dependencies.
 The dependencies you need are the following ones:
 ```cmd
 pip install rpyc==3.3.0 pillow boto3

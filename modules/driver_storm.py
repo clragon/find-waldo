@@ -3,17 +3,18 @@ import threading
 import time
 import math
 import rpyc
-import os
 
 
 class Driver:
-    '''A handler class for an EV3. Connects remotely over RPyC.
+    '''
+    A handler class for an EV3. Connects remotely over RPyC.
     
     Implements basic functions for moving.
 
-    Driving straight, turning, speaking and pointing are supported.'''
+    Driving straight, turning, speaking and pointing are supported.
+    '''
 
-    def __init__(self, address,
+    def __init__(self, address=ROBOT_ADDRESS,
                  base_speed=MOTOR_BASE_SPEED,
                  base_ramp_up=MOTOR_BASE_RAMP_UP,
                  base_ramp_dw=MOTOR_BASE_RAMP_DOWN,
@@ -25,7 +26,7 @@ class Driver:
             # Try to connect to the robot
             self.remote_ip = rpyc.classic.connect(address)
             # instantiate the EV3 dev module on the robot.
-            self.ev3 = self.remote_ip.modules['ev3dev.ev3']
+            self.ev3 = self.remote_ip.modules['ev3dev2.ev3']
         except:
             raise Exception("Robot couldnt be reached at {}".format(address or "<no address>"))
 
@@ -38,17 +39,20 @@ class Driver:
             raise Exception("Motors couldn't be reached")
 
         try:
-            self.btn = self.ev3.TouchSensor()
+            self.button = self.ev3.TouchSensor()
         except:
-            print("no button found")
+            print("Button cannot be reached")
 
-        self.btn_event = self.btn_default
-        self.btn_args = None
-        threading.Thread(target = self.btn_check).start()
+        self.button_event = self.button_default
+        self.button_args = None
 
-        self.base_speed = base_speed
-        self.base_ramp_up = base_ramp_up
-        self.base_ramp_dw = base_ramp_dw
+        button_thread = threading.Thread(target = self.button_check)
+        button_thread.daemon = True
+        button_thread.start()
+
+        self.speed = base_speed
+        self.ramp_up = base_ramp_up
+        self.ramp_dw = base_ramp_dw
         self.radius = wheel_radius
         self.diameter = diameter
         self.pointer = pointer
@@ -67,39 +71,43 @@ class Driver:
 
 
     # drive straight for the given amount of mm. Optionally, speed and ramping can ge passed as parameters.
-    def drive(self, mm, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
-        '''Drive straight for the given amount of mm.
+    def drive(self, mm, ramp_up=self.ramp_up, ramp_dw=self.ramp_dw):
+        '''
+        Drive straight for the given amount of mm.
 
         Parameters:
             mm (int): The amount of milimeters to drive straight for.
             ramp_up (int): amount of miliseconds until full speed.
-            ramp_dw (int): amount of miliseconds until full stop.'''
+            ramp_dw (int): amount of miliseconds until full stop.
+        '''
         
-        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
-        self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.base_speed, ramp_up_sp=ramp_up/2, ramp_down_sp=ramp_dw)
+        self.mL.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mR.run_to_rel_pos(position_sp=mm * self.one_mm, speed_sp=self.speed, ramp_up_sp=ramp_up/2, ramp_down_sp=ramp_dw)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 
     # drive one Motor for the given amount of degree. Optionally, speed and ramping can ge passed as parameters.
-    def driveL(self, grad, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):  
-        self.mL.run_to_rel_pos(position_sp=grad, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+    def driveL(self, grad, ramp_up=self.ramp_up, ramp_dw=self.ramp_dw):
+        self.mL.run_to_rel_pos(position_sp=grad, speed_sp=self.speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
         self.mL.wait_while('running')
- 
-     # drive one Motor for the given amount of degree. Optionally, speed and ramping can ge passed as parameters.
-    def driveR(self, grad, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
-        self.mR.run_to_rel_pos(position_sp=grad, speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+
+    # drive one Motor for the given amount of degree. Optionally, speed and ramping can ge passed as parameters.
+    def driveR(self, grad, ramp_up=self.ramp_up, ramp_dw=self.ramp_dw):
+        self.mR.run_to_rel_pos(position_sp=grad, speed_sp=self.speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
         self.mR.wait_while('running')
- 
+
     # turn the robot to the right by given degrees. Minus degrees can be given to turn to the left.
-    def turn(self, degrees, ramp_up=MOTOR_BASE_RAMP_UP, ramp_dw=MOTOR_BASE_RAMP_DOWN):
-        '''Turn to the right by the given degrees.
+    def turn(self, degrees, ramp_up=self.ramp_up, ramp_dw=self.ramp_dw):
+        '''
+        Turn to the right by the given degrees.
         
         It is possible to pass negative degrees resulting in turning to the left.
         Parameters:
-            degrees (int): How many degrees to turn to the right by.'''
+            degrees (int): How many degrees to turn to the right by.
+        '''
 
-        self.mL.run_to_rel_pos(position_sp= - (degrees * self.turn_deg), speed_sp=self.base_speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
-        self.mR.run_to_rel_pos(position_sp= + (degrees * self.turn_deg), speed_sp=self.base_speed, ramp_up_sp=ramp_up/2, ramp_down_sp=ramp_dw)
+        self.mL.run_to_rel_pos(position_sp= - (degrees * self.turn_deg), speed_sp=self.speed, ramp_up_sp=ramp_up, ramp_down_sp=ramp_dw)
+        self.mR.run_to_rel_pos(position_sp= + (degrees * self.turn_deg), speed_sp=self.speed, ramp_up_sp=ramp_up/2, ramp_down_sp=ramp_dw)
         self.mL.wait_while('running')
         self.mR.wait_while('running')
 
@@ -119,18 +127,19 @@ class Driver:
         self.mP.run_to_abs_pos(position_sp=0, speed_sp=self.base_speed/2)
         self.mP.wait_while('running')
 
-    def btn_set(self, function, *args):
-        self.btn_event = function
-        self.btn_args = args
+    def button_set(self, function, *args):
+        self.button_event = function
+        self.button_args = args
 
-    def btn_check(self):
+    def button_check(self):
         while True:
-            if self.btn.is_pressed:
-                if (self.btn_args is not None):
-                    self.btn_event(*self.btn_args)
-                else:
-                    self.btn_event()
+            self.button.wait_for_pressed()
+            if (self.button_args is not None):
+                self.button_event(*self.button_args)
+            else:
+                self.button_event()
+            time.sleep(1)
 
-    def btn_default(self):
+    def button_default(self):
         self.beep()
 
